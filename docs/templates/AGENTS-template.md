@@ -2,7 +2,7 @@
 
 > **Für jeden Agent der hier arbeitet — PFLICHTLEKTÜRE vor jeder Aktion:**
 > Lies diese Datei vollständig → verstehe den Aktuellen Stand → handle. Keine Rückfragen vorher.
-> Danach `C:\GIT\AGENTS.md` für globale Regeln (Commit-Format, Memory-System, Rollen).
+> Globale Regeln + Infrastruktur: `C:\GIT\AGENTS.md` | Thomas als Mensch: `C:\GIT\user-memory\profile.md`
 
 ---
 
@@ -27,6 +27,19 @@
 | **Remote** | `https://github.com/thomasdenk79-cyber/{repo-name}` |
 | **Docs** | `python -m mkdocs gh-deploy` |
 | **Tests** | `python standards\scripts\test_docs.py` |
+
+## Cross-Referenzen (andere Repos die relevant sind)
+
+> Wenn dieses Repo Code, Konzepte oder Daten aus anderen Repos braucht — hier verlinken.
+> Agent lädt nur was für die aktuelle Aufgabe relevant ist.
+
+| Repo | Warum relevant | Was dort lesen |
+|---|---|---|
+| *(leer wenn keine Cross-Refs)* | | |
+
+Beispiele:
+- `C:\GIT\postgre` → DB-Schema das dieses Repo nutzt → dort AGENTS.md Abschnitt "Schema"
+- `D:\git\llm-evaluation-workbench` → Benchmark-Ergebnisse die diese Entscheidung begründen
 
 ## Offene TODOs
 
