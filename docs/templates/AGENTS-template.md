@@ -1,11 +1,8 @@
 # AGENTS.md — {REPO-NAME}
 
-> ## 🚨 SOFORTAKTION — BEVOR DU IRGENDETWAS FRAGST:
-> **Springe zu Abschnitt "AKTUELLER STAND" (unten) und führe den Nächster-Schritt-Befehl aus.**
-> Frage den Nutzer NICHT was zu tun ist — der Stand steht drin. Dann diese Datei vollständig lesen.
-
-> **SCHRITT 0:** Danach `C:\GIT\AGENTS.md` lesen (globale Regeln, Commit-Format, Memory-System).
-> Diese Datei ergänzt das Globale für dieses Repo. Nichts wiederholen was global steht.
+> **Für jeden Agent der hier arbeitet — PFLICHTLEKTÜRE vor jeder Aktion:**
+> Lies diese Datei vollständig → verstehe den Aktuellen Stand → handle. Keine Rückfragen vorher.
+> Danach `C:\GIT\AGENTS.md` für globale Regeln (Commit-Format, Memory-System, Rollen).
 
 ---
 
