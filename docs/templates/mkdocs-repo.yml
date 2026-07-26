@@ -1,0 +1,24 @@
+# mkdocs.yml Template für neue Repos
+#
+# Dieses Template in das neue Repo kopieren und anpassen.
+# Erbt das komplette Theme/Extensions von standards — nur Repo-Spezifisches hier.
+
+INHERIT: ../standards/mkdocs-base.yml
+
+site_name: {REPO-NAME}
+site_description: {BESCHREIBUNG}
+
+docs_dir: docs
+site_dir: site
+
+repo_name: thomasdenk79-cyber/{REPO-NAME}
+repo_url: https://github.com/thomasdenk79-cyber/{REPO-NAME}
+edit_uri: edit/main/docs/
+
+nav:
+  - Start: index.md
+  # Gemeinsame Docs aus standards einbinden:
+  - KI-Agenten-Konzept: shared/ki-team-konzept.md
+  # Repo-spezifische Seiten:
+  - Entwickler:
+    - Setup: operations/setup.md
