@@ -1,8 +1,20 @@
 # AGENTS.md — {REPO-NAME}
 
+- **AI-ACCESS:** allowed
+- **INHERITS:** `C:\GIT\AGENTS.md`
+- **OVERRIDES:** none
+- **SCOPE:** this repository
+
 > **Für jeden Agent der hier arbeitet — PFLICHTLEKTÜRE vor jeder Aktion:**
 > Lies diese Datei vollständig → verstehe den Aktuellen Stand → handle. Keine Rückfragen vorher.
-> Globale Regeln + Infrastruktur: `C:\GIT\AGENTS.md` | Thomas als Mensch: `C:\GIT\user-memory\profile.md`
+> Vorher verpflichtend: `C:\GIT\AGENTS.md`, `C:\GIT\user-memory\profile.md`,
+> `C:\GIT\agent-memory\INDEX.md` und `C:\GIT\standards\AGENTS.md`.
+> Bei Projekt-/Themenwechsel diese Hierarchie für das neue Projekt erneut laden.
+
+Die tiefste passende `AGENTS.md` gilt für ihren Unterbaum. Benenne lokale Overrides
+oben explizit; nicht erwähnte Parent-Regeln werden geerbt. Repository-Owner können
+mit `AI-ACCESS: read-only` Änderungen verbieten oder mit `AI-ACCESS: denied`
+Agent-Arbeit vollständig untersagen.
 
 ---
 
@@ -40,6 +52,19 @@
 Beispiele:
 - `C:\GIT\postgre` → DB-Schema das dieses Repo nutzt → dort AGENTS.md Abschnitt "Schema"
 - `D:\git\llm-evaluation-workbench` → Benchmark-Ergebnisse die diese Entscheidung begründen
+
+## Gedächtnis-Routing
+
+Nach jedem bedeutenden Befund, Meilenstein, Themenwechsel und vor Abschluss/Kompaktierung:
+
+| Information | Ziel |
+|---|---|
+| Technischer Stand, Befehle, TODOs, Fallstricke | Diese `AGENTS.md` oder verlinktes Handover |
+| Persönlicher Kontext über Thomas | `C:\GIT\user-memory\profile.md` |
+| Cross-Repo-Session-Handoff | `C:\GIT\user-memory\session-log.md` |
+| Wiederverwendbare Agent-Erkenntnis | Über `C:\GIT\agent-memory\INDEX.md` routen |
+
+Nicht auf die Aufforderung "merk dir das" oder ein erkennbares Session-Ende warten.
 
 ## Offene TODOs
 

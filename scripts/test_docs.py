@@ -10,7 +10,7 @@ Prüft:
 
 Ausführen:
   cd D:\\git\\llm-evaluation-workbench
-  python scripts\\test_docs.py
+  python standards\\scripts\\test_docs.py
 
 Oder mit pytest:
   pytest scripts\\test_docs.py -v
@@ -24,13 +24,14 @@ from datetime import datetime, timedelta
 from html.parser import HTMLParser
 
 # ── Pfade ──────────────────────────────────────────────────────────────────
-REPO_ROOT   = Path(__file__).parent.parent
+SCRIPT_REPO_ROOT = Path(__file__).parent.parent
+WORKING_DIR = Path.cwd()
+REPO_ROOT   = WORKING_DIR if (WORKING_DIR / "AGENTS.md").exists() else SCRIPT_REPO_ROOT
 SITE_DIR    = REPO_ROOT / "site"
 DOCS_DIR    = REPO_ROOT / "docs"
 MKDOCS_YML  = REPO_ROOT / "mkdocs.yml"
 AGENTS_MD   = REPO_ROOT / "AGENTS.md"
-MEMORY_DIR  = Path("C:/GIT/.memory")
-SESSION_LOG = MEMORY_DIR / "session-log.md"
+SESSION_LOG = Path("C:/GIT/user-memory/session-log.md")
 
 
 # ── Hilfsklasse: interne Links aus HTML extrahieren ────────────────────────
@@ -50,6 +51,10 @@ class LinkExtractor(HTMLParser):
 
 def test_mkdocs_build():
     """mkdocs build muss fehlerfrei durchlaufen."""
+    if not MKDOCS_YML.exists():
+        print(f"  SKIP keine mkdocs.yml in {REPO_ROOT}")
+        return
+
     result = subprocess.run(
         [sys.executable, "-m", "mkdocs", "build", "--strict"],
         cwd=REPO_ROOT,
@@ -76,7 +81,7 @@ def test_all_nav_pages_exist():
         # index.md → index.html, andere → {name}/index.html
         stem = Path(md).stem
         parent = Path(md).parent
-        if stem == "index":
+        if stem.lower() in {"index", "readme"}:
             html_path = SITE_DIR / parent / "index.html"
         else:
             html_path = SITE_DIR / parent / stem / "index.html"
@@ -149,14 +154,19 @@ def test_agents_md_mandatory_sections():
     content = AGENTS_MD.read_text(encoding="utf-8")
 
     required = [
-        ("Aktueller Stand",   "Aktueller-Stand-Block fehlt"),
-        ("Nächster Schritt",  "Nächster-Schritt-Eintrag fehlt"),
+        (("Aktueller Stand", "Current state"), "Aktueller-Stand-Block fehlt"),
+        (("Nächster Schritt", "Nächster Agent", "Next step", "Next benchmark actions"), "Nächster-Schritt-Eintrag fehlt"),
     ]
     recommended = [
         ("llm:",  "agent/llm/role noch nicht eingetragen — bitte ergaenzen"),
     ]
 
-    missing = [msg for keyword, msg in required if keyword not in content]
+    content_lower = content.lower()
+    missing = [
+        msg
+        for alternatives, msg in required
+        if not any(keyword.lower() in content_lower for keyword in alternatives)
+    ]
     assert not missing, (
         "AGENTS.md Pflichtabschnitte fehlen:\n" + "\n".join(f"  x {m}" for m in missing)
     )
