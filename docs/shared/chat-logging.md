@@ -54,8 +54,10 @@ Klassifizierung, Ableitungsvererbung und Userdaten-Grenzen stehen ausschließlic
 
 ## Mindestmetadaten
 
-Rohdatei: `YYYYMMDDTHHMMSS+HHMM_{session-id}.{jsonl|log}`  
-Sidecar: `YYYYMMDDTHHMMSS+HHMM_{session-id}.meta.yml`  
+Rohdatei: `YYYYMMDDTHHMMSS+HHMM_{session-id}.{jsonl|log}`
+
+Sidecar: `YYYYMMDDTHHMMSS+HHMM_{session-id}.meta.yml`
+
 Verdichtung: `YYYYMMDDTHHMMSS+HHMM_{session-id}_{topic}.md`
 
 Dateinamen sind Windows-sicher und enthalten das Modell nicht redundant; die exakte Model-ID
