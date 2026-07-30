@@ -41,7 +41,8 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 
 ## Regeln
 
-- Gemeinsames Verhalten einmal hier pflegen; Projektspezifisches bleibt im Projekt.
+- Gemeinsame Best-Practice-Defaults einmal hier pflegen; Projektspezifisches und die endgültige
+  Entscheidung über Übernahme, Override oder Deaktivierung bleiben beim Repository-Owner.
 - Vor fachlicher Umsetzung muss die Repo-`AGENTS.md` auf die kanonischen Quellen für Vision,
   Ziele/Nicht-Ziele und Anforderungen/Changes verweisen. Der Umfang folgt Risiko und Reifegrad;
   unklare frühe Wünsche dürfen mit sichtbaren Annahmen beginnen.

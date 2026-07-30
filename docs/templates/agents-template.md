@@ -22,7 +22,10 @@
 > bevor substanzielle Arbeit in seinem Geltungsbereich beginnt.
 
 Die Policy-Semantik steht ausschließlich in `C:\GIT\AGENTS.md`. `inherit` übernimmt den
-Workspace- oder Parent-Wert; lokale Verschärfungen und Overrides werden oben sichtbar benannt.
+Workspace- oder Parent-Wert. Der autorisierte Repository-Owner kann Defaults übernehmen,
+konkretisieren, ersetzen oder deaktivieren und Agentenzugriff bis `AI-ACCESS: denied`
+ausschließen; lokale Overrides werden oben sichtbar benannt. Agents dürfen diese Rechte nicht
+selbst verändern.
 
 ---
 

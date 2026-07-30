@@ -26,6 +26,27 @@ Je unklarer oder folgenreicher eine Anforderung ist, desto wichtiger sind sichtb
 Akzeptanzkriterien und gegebenenfalls eine Rückfrage. Nicht jede frühe Idee braucht sofort einen
 formalen Anforderungskatalog.
 
+## Defaults unter Kontrolle des Repository-Owners
+
+Dieses Modell ist ein gemeinsames **Best-Practice-Gerüst, kein Zwangsprofil**. Es verhindert,
+dass jedes Team dieselben Grundfragen unabhängig und widersprüchlich neu lösen muss. Der
+autorisierte Repository-Owner entscheidet dennoch abschließend über Arbeitsweise, Dokumentation
+und Agentennutzung in seinem Scope.
+
+- Ohne lokalen Override gelten die geerbten Workspace-/Parent-Defaults.
+- Ein Repo darf einzelne Defaults übernehmen, konkretisieren, ersetzen oder deaktivieren.
+- Ein Repo darf Agentenzugriff auf `read-only` setzen oder mit `AI-ACCESS: denied` vollständig
+  ausschließen.
+- Ein Repo darf andere Dateien und Prozesse verwenden, wenn seine kanonischen Quellen und
+  lokalen Regeln eindeutig geroutet sind.
+- Repo-Typ, Reifegrad und Risiko liefern Empfehlungen, aber keine automatisch erzwungenen
+  Artefakte oder Berechtigungen.
+- Ein Agent darf Owner-Policies weder selbst einführen noch seine Rechte erweitern.
+
+Nur übergeordnete Sicherheits-, Rechts-, Datenschutz- und Secret-Schutzgrenzen sowie explizite
+User-Vorgaben bleiben unverhandelbar. Die genaue Policy-Semantik steht im anwendbaren
+Workspace-/Parent-Router; Vendor-Adapter dürfen sie nicht verändern.
+
 ## Welche Information gehört wohin?
 
 | Information | Kanonischer Ort | Nicht dafür verwenden |
@@ -52,10 +73,12 @@ eindeutige Verweise aus der Repo-`AGENTS.md`.
 - Bestehende Dateien werden nur mit Nutzen und vollständig aktualisierten Verweisen umbenannt,
   nicht für reine Kosmetik.
 
-## Artefakt-Katalog: nur bei echtem Bedarf
+## Empfohlener Artefakt-Katalog: nur bei echtem Bedarf
 
-Der Katalog ist vollständig genug für typische Software- und Betriebsprojekte, aber kein
-Pflicht-Dateibaum. Eine Datei entsteht nur, wenn sie eine eigene kanonische Aufgabe erfüllt.
+Der Katalog ist ein Satz konsistenter Defaults für typische Software- und Betriebsprojekte, aber
+kein Pflicht-Dateibaum. Der Repository-Owner entscheidet, welche Artefakte Nutzen bringen, welche
+gleichwertig anders gelöst und welche vollständig weggelassen werden. Eine Datei entsteht nur,
+wenn sie eine eigene kanonische Aufgabe erfüllt.
 
 | Artefakt | Zweck | Wann anlegen |
 |---|---|---|

@@ -10,7 +10,10 @@ canonical: false
 # Repository-Modell
 
 Jedes Repository besitzt seinen technischen Zustand und seine Owner-Policies. Gemeinsame
-Regeln werden nicht kopiert, sondern über Router und Links eingebunden.
+Best-Practice-Defaults werden nicht kopiert, sondern über Router und Links eingebunden. Der
+autorisierte Repository-Owner entscheidet, welche Defaults gelten: Er darf sie übernehmen,
+konkretisieren, ersetzen, deaktivieren oder AI-Agenten vollständig ausschließen. Repo-Archetypen
+helfen nur bei Empfehlungen; sie erzeugen keine Pflichtprofile.
 
 | Bereich | Verantwortung |
 |---|---|
