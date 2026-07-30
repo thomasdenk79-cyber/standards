@@ -1,0 +1,80 @@
+=== CHAT-LOG HEADER ===
+Agent:         opencode
+LLM:           deepseek-v4-flash
+LLM-Version:   siemens/deepseek-v4-flash (via opencode CLI)
+Datum:         2026-07-29T09:00:00+02:00
+Topic:         Chat-Log-Protokoll + LLM-API-Curl-Test
+Auftraggeber:  [REDACTED]
+Chat-ID:       sanitized-001_opencode_deepseek-v4-flash_chatlog-protokoll
+=== END HEADER ===
+
+--- PHASE 1: Curl API-Test ---
+
+User: Möchte LLM-API mit curl testen. /models-Endpoint gibt "You cannot consume this service"
+
+Agent: Erklärung dass der /models-Endpoint oft gesperrt ist. Vorschlag den API-Token aus einer Datei zu laden.
+
+User: Gibt API-Key
+
+Agent: 
+- curl.exe statt curl (PowerShell-Alias-Problem) 
+- /models funktioniert mit dem Key → Models gelistet: bge-m3, deepseek-v4-flash, gpt-oss-120b, ministral-3-14b-instruct-2512, qwen-3.6-27b, qwen3-embedding-0.6b, qwen3-embedding-8b, qwen3-reranker-0.6b, Mistral-Small-24B-Instruct-2501-FP8-dynamic, whisper-large-v3-turbo
+- /chat/completions gibt 500 Internal Server Error bei ALLEN Modellen
+- -v Flag zeigt: Upstream liefert 500, nicht Auth
+- Ursache: vLLM-Backend scheint down/nicht deployed
+
+--- PHASE 2: Chat-Log-Persistenz ---
+
+User: Frage ob Chat-Verlauf nach Neustart erhalten bleibt
+
+Agent: Nein, das CLI-Tool hat kein built-in Session-Logging
+
+User: Verweist auf AGENTS.md-Dateien mit Anweisungen
+
+Agent: Liest alle relevanten AGENTS.md Dateien, memory-Dateien
+
+User: Möchte universelles Chat-Log-System:
+- Ziel-Pfad mit Agent, LLM, Laufnummer, Topic
+- Soll in AGENTS.md als Pflicht hinterlegt werden
+- Wrapper-Scripte in gemeinsamen Skript-Ordner
+
+Agent: Schlägt 2-Schichten-Modell vor: Raw-Log (Wrapper) + Metadaten (Agent)
+
+User: Denkt an Terminal-Emulator-Logging → besser als pro-Tool-Wrapper
+
+Agent: Stimmt zu
+
+User: Sagt Agent soll Session-Start Header schreiben (Identität, Topic) → steht im Log
+
+Agent: Findet Idee elegant
+
+User: Verfeinert zur 2-Tier-Struktur:
+- RAW: privat (alles erlaubt, lokal)
+- SANITIZED: public (ohne Personen/Secrets)
+- Dateiname: {raw|sanitized}-{id}_{agent}_{llm}_{topic}_{ticket?}.log
+- Git-Referenzierung: chatlog-Pfad in Commit-Messages
+- Agent schreibt am Session-Ende beide Versionen
+
+--- PHASE 3: Implementierung ---
+
+Agent:
+1. Globales AGENTS.md → Section "Mandatory chat-log protocol" angehängt
+   - 2-Tier-Storage definiert
+   - Dateinamens-Konvention
+   - Git-Referenzierung
+   - Session-Start Header (Pflicht, sofort)
+   - Session-Ende Footer + Logs speichern
+
+2. user-memory/AGENTS.md → raw-logs destination ergänzt
+3. standards/AGENTS.md → sanitized logs + redaction rules
+4. agent-memory INDEX.md → neue Log-Pfade
+5. Heutige Session als raw-001 + sanitized-001 gespeichert
+6. Session-Log in user-memory/session-log.md aktualisiert
+
+=== CHAT-LOG FOOTER ===
+Session-Ende: 2026-07-29T10:00:00+02:00
+Summary:      Chat-Log-Protokoll definiert und implementiert. 2-Tier-Storage (raw lokal, sanitized public). Header/Footer-Pflicht für jeden Agent. LLM-API curl-Test: /models OK, /chat/completions 500 (Service-Problem).
+Outcome:     erreicht
+Open Items:  Terminal-Emulator-Logging einrichten, nächste Session muss Protokoll befolgen
+Chat-ID:     sanitized-001_opencode_deepseek-v4-flash_chatlog-protokoll
+=== END FOOTER ===

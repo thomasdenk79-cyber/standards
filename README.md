@@ -25,7 +25,7 @@ git submodule add https://github.com/thomasdenk79-cyber/standards.git standards
 # (siehe docs/templates/mkdocs-repo.yml)
 
 # 3. AGENTS.md aus Template kopieren
-copy standards\docs\templates\AGENTS-template.md AGENTS.md
+copy standards\docs\templates\agents-template.md AGENTS.md
 ```
 
 ## Update standards in allen Repos

@@ -17,8 +17,7 @@ edit_uri: edit/main/docs/
 
 nav:
   - Start: index.md
-  # Gemeinsame Docs aus standards einbinden:
-  - KI-Agenten-Konzept: shared/ki-team-konzept.md
+  - AI-native Engineering: https://thomasdenk79-cyber.github.io/standards/concepts/ai-native-engineering/
   # Repo-spezifische Seiten:
   - Entwickler:
     - Setup: operations/setup.md

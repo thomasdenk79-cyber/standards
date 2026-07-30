@@ -1,52 +1,64 @@
-# Standards repository router
+# Router des Standards-Repositorys
 
 - **AI-ACCESS:** allowed
+- **AI-SECRET-ACCESS:** denied
 - **INHERITS:** `C:\GIT\AGENTS.md`
 - **OVERRIDES:** none
-- **SCOPE:** this repository
+- **SCOPE:** dieses Repository
 
-> Read after `C:\GIT\AGENTS.md` at every session start.
+> Nach `C:\GIT\AGENTS.md` bei jedem Session-Start lesen.
 
-## Purpose
+## Zweck
 
-This repository is the canonical source for shared documentation rules, MkDocs configuration, quality checks, and project templates.
+Dieses Repository ist die kanonische Quelle für gemeinsame Dokumentationsregeln,
+MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 
-## Current state
+## Aktueller Stand
 
-- Agent: GitHub Copilot CLI | llm: runtime-selected model | role: shared instruction maintenance
-- Hierarchical `AGENTS.md` inheritance, explicit overrides, AI-access markers, and
-  live memory routing are reflected in the canonical template.
-- `scripts\test_docs.py` validates the active calling repository when used through
-  a standards submodule and skips MkDocs only when that repository has no config.
+- Agent: GitHub Copilot CLI | model: runtime-selected | role: shared instruction maintenance
+- Hierarchische Vererbung, explizite Overrides, Zugriffsmarker und Memory-Routing sind in der
+  kanonischen Vorlage abgebildet.
+- Das vendor-neutrale Repository-Wissensmodell trennt Fachanforderungen, Entscheidungen,
+  Arbeitsstatus und Agentenanweisungen und skaliert vom Project Brief bis zur Traceability.
+- `scripts\test_docs.py` validiert das aufrufende Repository und überspringt MkDocs nur, wenn
+  dort keine Konfiguration existiert.
 
-## Next step
+## Nächster Schritt
 
-- Apply `docs\templates\AGENTS-template.md` when a permitted project needs a new
-  router; do not create one in owner-controlled repositories without checking policy.
+- `docs\templates\agents-template.md` verwenden, wenn ein erlaubtes Projekt einen neuen Router
+  benötigt. In fremden oder owner-kontrollierten Repositories vorher die Policy prüfen.
 
-## Required reads
+## Bedarfsabhängige Vertiefungen
 
-1. Read `README.md` for the repository map.
-2. Read only the task-relevant file below:
-   - Agent hierarchy or new repository: `docs\templates\AGENTS-template.md`
-   - Documentation structure: `docs\shared\` and the relevant template
-   - Docs validation: `scripts\test_docs.py`
-   - MkDocs inheritance: `mkdocs-base.yml`
+- Agenten-Hierarchie oder neues Repository: `docs\templates\agents-template.md`
+- Vision, Anforderungen, Changes oder Vendor-Instructions:
+  `docs\shared\repository-knowledge.md`
+- Dokumentationsstruktur: relevante Datei unter `docs\shared\` oder `docs\templates\`
+- Klassifizierung oder sensible Daten: `docs\shared\data-handling.md`
+- Gesprächsbelege: `docs\shared\chat-logging.md`
+- Doku-Validierung: `scripts\test_docs.py`
+- MkDocs-Vererbung: `mkdocs-base.yml`
 
-## Rules
+## Regeln
 
-- Shared behavior belongs here once; project-specific behavior belongs in the project.
-- Project files should reference standards instead of copying large shared sections.
-- Hierarchy is inherited by default; the deepest applicable `AGENTS.md` may explicitly override parent project/workflow rules for its subtree.
-- Repository-owner restrictions take precedence. Support `AI-ACCESS: allowed`, `read-only`, or `denied`.
-- Child overrides must name the superseded rule; unmentioned parent rules continue to apply.
-- A child cannot weaken platform safety, law, privacy, secret handling, or explicit user constraints.
-- When the required shape of project `AGENTS.md` changes, update `docs\templates\AGENTS-template.md` in the same change.
-- Do not load all `docs\` at startup. Follow explicit links for the active task.
-- Validate documentation changes with the existing docs test when applicable.
+- Gemeinsames Verhalten einmal hier pflegen; Projektspezifisches bleibt im Projekt.
+- Vor fachlicher Umsetzung muss die Repo-`AGENTS.md` auf die kanonischen Quellen für Vision,
+  Ziele/Nicht-Ziele und Anforderungen/Changes verweisen. Der Umfang folgt Risiko und Reifegrad;
+  unklare frühe Wünsche dürfen mit sichtbaren Annahmen beginnen.
+- Sprachdefaults kommen ausschließlich aus `C:\GIT\workspace-settings.yml`.
+- Technische Datei- und Verzeichnisnamen verwenden englisches ASCII-Kebab-Case. Historische
+  Artefakte und extern vorgegebene/reservierte Namen wie `AGENTS.md`, `README.md`, `LICENSE`
+  oder `CODEOWNERS` werden nicht nur aus Stilgründen umbenannt.
+- Projektdateien verweisen auf Standards, statt gemeinsame Langregeln zu kopieren.
+- Lokale Owner-Restriktionen und die Policy-Semantik aus dem Root-Router gelten.
+- Ändert sich die erforderliche Form eines Projekt-Routers, wird die kanonische Vorlage in
+  derselben Änderung aktualisiert.
+- Nicht alle `docs\` beim Startup laden; nur aufgabenrelevanten Verweisen folgen.
+- Dokumentationsänderungen mit den vorhandenen Tests validieren.
 
-## Memory routing
+## Memory-Routing
 
-- Standards decisions affecting multiple repositories: update the relevant shared document and `C:\GIT\.memory\decisions.md`.
-- New reusable agent behavior: route through `C:\GIT\agent-memory\INDEX.md`.
-- Do not store personal information here.
+- Repositoryübergreifende Standards-Entscheidung: relevante Shared-Doku und
+  `C:\GIT\.memory\decisions.md`.
+- Wiederverwendbares Agentenverhalten: über `C:\GIT\agent-memory\INDEX.md` routen.
+- Keine personenbezogenen Daten in diesem Repository speichern.

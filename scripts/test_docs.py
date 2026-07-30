@@ -19,6 +19,10 @@ Oder mit pytest:
 import subprocess
 import sys
 import re
+import atexit
+import shutil
+import tempfile
+from urllib.parse import urlparse
 from pathlib import Path
 from datetime import datetime, timedelta
 from html.parser import HTMLParser
@@ -27,11 +31,21 @@ from html.parser import HTMLParser
 SCRIPT_REPO_ROOT = Path(__file__).parent.parent
 WORKING_DIR = Path.cwd()
 REPO_ROOT   = WORKING_DIR if (WORKING_DIR / "AGENTS.md").exists() else SCRIPT_REPO_ROOT
-SITE_DIR    = REPO_ROOT / "site"
+SITE_DIR    = Path(tempfile.mkdtemp(prefix="mkdocs-docs-test-"))
 DOCS_DIR    = REPO_ROOT / "docs"
 MKDOCS_YML  = REPO_ROOT / "mkdocs.yml"
 AGENTS_MD   = REPO_ROOT / "AGENTS.md"
 SESSION_LOG = Path("C:/GIT/user-memory/session-log.md")
+SETTINGS_VALIDATOR = SCRIPT_REPO_ROOT / "scripts" / "validate_workspace_settings.py"
+atexit.register(shutil.rmtree, SITE_DIR, ignore_errors=True)
+
+
+def get_site_path_prefix():
+    """Return the path prefix from site_url, e.g. /standards for GitHub Pages."""
+    if not MKDOCS_YML.exists():
+        return ""
+    match = re.search(r"^site_url:\s*[\"']?([^\s\"']+)", MKDOCS_YML.read_text(encoding="utf-8"), re.MULTILINE)
+    return urlparse(match.group(1)).path.rstrip("/") if match else ""
 
 
 # ── Hilfsklasse: interne Links aus HTML extrahieren ────────────────────────
@@ -56,7 +70,7 @@ def test_mkdocs_build():
         return
 
     result = subprocess.run(
-        [sys.executable, "-m", "mkdocs", "build", "--strict"],
+        [sys.executable, "-m", "mkdocs", "build", "--strict", "--site-dir", str(SITE_DIR)],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -115,6 +129,7 @@ def test_no_broken_internal_links():
         return
 
     broken = []
+    site_prefix = get_site_path_prefix()
     for html_file in SITE_DIR.rglob("*.html"):
         content = html_file.read_text(encoding="utf-8", errors="ignore")
         extractor = LinkExtractor()
@@ -128,6 +143,8 @@ def test_no_broken_internal_links():
 
             # Relativen Pfad auflösen
             if link.startswith("/"):
+                if site_prefix and (clean == site_prefix or clean.startswith(f"{site_prefix}/")):
+                    clean = clean[len(site_prefix):].lstrip("/")
                 target = SITE_DIR / clean.lstrip("/")
             else:
                 target = html_file.parent / clean
@@ -158,7 +175,7 @@ def test_agents_md_mandatory_sections():
         (("Nächster Schritt", "Nächster Agent", "Next step", "Next benchmark actions"), "Nächster-Schritt-Eintrag fehlt"),
     ]
     recommended = [
-        ("llm:",  "agent/llm/role noch nicht eingetragen — bitte ergaenzen"),
+        ("model:", "agent/model/role provenance is missing"),
     ]
 
     content_lower = content.lower()
@@ -174,6 +191,19 @@ def test_agents_md_mandatory_sections():
     for keyword, msg in recommended:
         if keyword not in content:
             print(f"  WARN {msg}")
+
+
+def test_workspace_settings_schema():
+    """Workspace defaults must match their canonical schema."""
+    if not SETTINGS_VALIDATOR.exists():
+        return
+    result = subprocess.run(
+        [sys.executable, str(SETTINGS_VALIDATOR)],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 def test_session_log_recently_updated():
@@ -205,6 +235,7 @@ if __name__ == "__main__":
         test_no_empty_pages,
         test_no_broken_internal_links,
         test_agents_md_mandatory_sections,
+        test_workspace_settings_schema,
         test_session_log_recently_updated,
     ]
 

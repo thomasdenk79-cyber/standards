@@ -1,0 +1,113 @@
+INHERIT: mkdocs-base.yml
+
+site_name: "Thomas Denk — Workspace"
+site_description: "Master-Dokumentation aller Repos, Konzepte und des KI-Agenten-Gedächtnissystems"
+site_url: "https://thomasdenk79-cyber.github.io/standards/"
+
+repo_url: "https://github.com/thomasdenk79-cyber/standards"
+repo_name: "standards"
+
+nav:
+  - 🏠 Start: index.md
+  - 🧠 Konzepte:
+    - concepts/index.md
+    - concepts/operating-model.md
+    - concepts/memory-architecture.md
+    - concepts/ai-native-engineering.md
+    - concepts/agent-team.md
+  - 📂 Repositories: repos/index.md
+  - 🤖 Agenten: agents/index.md
+  - 📚 Gemeinsam:
+    - Repository-Wissensmodell: shared/repository-knowledge.md
+    - Forschungsgrundlagen: shared/research-foundations.md
+    - Datenhandhabung: shared/data-handling.md
+    - Chat-Protokollierung: shared/chat-logging.md
+
+theme:
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/light-bulb-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/comment-16
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - content.action.view
+    - search.highlight
+    - search.suggest
+    - header.autohide
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: deep-purple
+      toggle:
+        icon: material/weather-sunny
+        name: Helles Design
+    - scheme: default
+      primary: indigo
+      accent: deep-purple
+      toggle:
+        icon: material/weather-night
+        name: Dunkles Design
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      title: Auf dieser Seite
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.keys
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/thomasdenk79-cyber
+      name: GitHub thomasdenk79-cyber
+  generator: false

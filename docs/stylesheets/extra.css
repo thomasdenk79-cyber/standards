@@ -1,0 +1,381 @@
+/* ── Hero Section ──────────────────────────────────────────── */
+.md-typeset .hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem 1rem;
+  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, #7c3aed 50%, #a855f7 100%);
+  border-radius: 16px;
+  margin: 0 0 2rem 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.md-typeset .hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.md-typeset .hero h1 {
+  color: #fff;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.md-typeset .hero .subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin: 0 0 1.5rem 0;
+  font-weight: 400;
+  position: relative;
+}
+
+.md-typeset .hero .badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.md-typeset .hero .badge {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+/* ── Card Grid ─────────────────────────────────────────────── */
+.md-typeset .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.md-typeset .grid.cards {
+  gap: 1.2rem;
+}
+
+.md-typeset .grid.cards > * {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  background: var(--md-default-bg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.md-typeset .grid.cards > *:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border-color: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > * {
+  background: var(--md-code-bg-color);
+  border-color: var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > *:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  border-color: var(--md-primary-fg-color);
+}
+
+.md-typeset .grid.cards > *.border-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.md-typeset .grid.cards > *.border-info {
+  border-left: 4px solid #3b82f6;
+}
+
+.md-typeset .grid.cards > *.border-success {
+  border-left: 4px solid #10b981;
+}
+
+/* Card content styling */
+.md-typeset .grid.cards h2,
+.md-typeset .grid.cards h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.md-typeset .grid.cards p {
+  margin: 0.4rem 0 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.md-typeset .grid.cards .badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset .grid.cards .badge.repo {
+  background: var(--md-primary-fg-color--light);
+  color: var(--md-primary-bg-color);
+}
+
+.md-typeset .grid.cards .badge.concept {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.md-typeset .grid.cards .badge.agent {
+  background: #0891b2;
+  color: #fff;
+}
+
+/* ── Section header ────────────────────────────────────────── */
+.md-typeset .section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 2.5rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--md-primary-fg-color);
+}
+
+.md-typeset .section-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* ── Stats Bar ─────────────────────────────────────────────── */
+.md-typeset .stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.8rem;
+  margin: 2rem 0;
+}
+
+.md-typeset .stats .stat {
+  text-align: center;
+  padding: 1.2rem 0.8rem;
+  background: var(--md-code-bg-color);
+  border-radius: 12px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .stats .stat {
+  background: var(--md-default-bg-color);
+}
+
+.md-typeset .stats .stat .num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--md-primary-fg-color);
+  line-height: 1;
+}
+
+.md-typeset .stats .stat .label {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-top: 0.3rem;
+}
+
+/* ── Button styles ─────────────────────────────────────────── */
+.md-typeset .md-button {
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.15s ease;
+}
+
+.md-typeset .md-button--primary {
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color) !important;
+  border-color: var(--md-primary-fg-color);
+}
+
+.md-typeset .md-button--primary:hover {
+  background: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+}
+
+.md-typeset .md-button--secondary {
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-fg-color) !important;
+}
+
+.md-typeset .md-button--secondary:hover {
+  background: var(--md-primary-fg-color--light);
+  color: var(--md-primary-bg-color) !important;
+}
+
+/* ── Feature cards ─────────────────────────────────────────── */
+.md-typeset .feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.md-typeset .feature-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .feature-card {
+  background: var(--md-default-bg-color);
+}
+
+.md-typeset .feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.md-typeset .feature-card .icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset .feature-card h3 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+}
+
+.md-typeset .feature-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* ── Button row ────────────────────────────────────────────── */
+.md-typeset .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+
+.md-typeset .button-row.center {
+  justify-content: center;
+}
+
+/* ── Quick links ───────────────────────────────────────────── */
+.md-typeset .quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.md-typeset .quick-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  color: var(--md-typeset-a-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .quick-links a {
+  background: var(--md-default-bg-color);
+}
+
+.md-typeset .quick-links a:hover {
+  background: var(--md-primary-fg-color--light);
+  color: var(--md-primary-bg-color);
+  text-decoration: none;
+}
+
+/* ── Timelines ─────────────────────────────────────────────── */
+.md-typeset .timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1.5rem 0;
+}
+
+.md-typeset .timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--md-primary-fg-color--light);
+}
+
+.md-typeset .timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+
+.md-typeset .timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.6rem;
+  top: 0.35rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--md-primary-fg-color);
+  border: 2px solid var(--md-default-bg-color);
+}
+
+.md-typeset .timeline-item h3 {
+  margin: 0 0 0.2rem 0;
+  font-size: 1rem;
+}
+
+.md-typeset .timeline-item p {
+  margin: 0;
+  font-size: 0.88rem;
+  opacity: 0.8;
+}
+
+/* ── Tag chips ─────────────────────────────────────────────── */
+.md-typeset .tag {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  vertical-align: middle;
+  margin: 0 0.15rem;
+}
+
+.md-typeset .tag.rust { background: #f74c00; color: #fff; }
+.md-typeset .tag.python { background: #3776AB; color: #fff; }
+.md-typeset .tag.typescript { background: #3178C6; color: #fff; }
+.md-typeset .tag.sql { background: #e38c00; color: #fff; }
+.md-typeset .tag.shell { background: #4eaa25; color: #fff; }
+.md-typeset .tag.markdown { background: #083fa1; color: #fff; }
+.md-typeset .tag.dotnet { background: #512BD4; color: #fff; }
+.md-typeset .tag.llm { background: #7c3aed; color: #fff; }
