@@ -80,10 +80,17 @@ starren globalen Tagesgrenzen. Der aktuelle Stand hat normalerweise Vorrang; ein
 kann aber einen alten Commit sofort hot machen. Kompressions- und Speichertiers sind davon
 getrennte Implementierungsdetails.
 
-Die Begriffe sind aus Storage-Systemen entlehnt; zum Beispiel dokumentiert Azure
-[Hot-, Cool-, Cold- und Archive-Tiers](https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview).
-Ihre Anwendung auf Kontextabruf ist eine bewusste Analogie, keine Behauptung physischer
-Speicherautomatik.
+Die vier Namen sind grobe Anker auf einem Kontinuum, keine harten Behälter. Begriffe wie
+`very warm`, `very cold` oder `deep archive` dürfen eine Zwischen- oder Randlage beschreiben,
+ohne das gemeinsame Modell um zusätzliche Pflichtstufen zu erweitern.
+
+Die Begriffe sind aus Storage-Systemen entlehnt. Azure dokumentiert
+[Hot, Cool, Cold und Archive](https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview),
+AWS unter anderem
+[Glacier Deep Archive](https://aws.amazon.com/s3/storage-classes/) und Google
+[Standard bis Archive](https://cloud.google.com/storage/docs/storage-classes).
+Anbieter verwenden wenige diskrete Klassen plus automatische Lifecycle-Regeln. Unsere Anwendung
+auf Kontextabruf ist eine bewusste Analogie, keine Behauptung physischer Speicherautomatik.
 
 ## Probabilistische Salienz
 
