@@ -67,7 +67,9 @@ C:\GIT\standards\settings.yml
 
 Die Standards-Datei enthält die vollständige Basis. `user-memory\settings.yml` überschreibt
 globale User-Defaults. Eine optionale benutzerspezifische Datei ergänzt oder überschreibt nur
-abweichende Werte. Fehlende Dateien und Schlüssel bedeuten Vererbung.
+abweichende Werte. Vor dem Laden wird ihre Existenz geprüft. Fehlende Dateien und Schlüssel
+bedeuten Vererbung; eine fehlende optionale Datei ist weder Fehler noch geladene Quelle.
+Statusausgaben unterscheiden deshalb mögliche Pfade, geladene Quellen und geerbte Werte.
 
 ### 2. `AGENTS.md`
 

@@ -37,6 +37,10 @@ Prioritaeten annehmen oder Defaults faelschlich als benutzerspezifische Entschei
 - Pfad und Dateiname gehoeren zur Information und folgen gemeinsam DRY und SSOT.
 - Gleichartige Dateien verwenden nach Moeglichkeit denselben knappen Namen, beispielsweise
   `settings.yml`, waehrend reservierte oder werkzeuggebundene Namen unveraendert bleiben.
+- Optionale Ebenen werden vor dem Laden auf Existenz geprueft und niemals faelschlich als
+  geladene Quelle ausgegeben.
+- `agent-memory\meta\principles.md` ist kein optionaler Detailabruf, sondern fester Bestandteil
+  jedes Session-Starts.
 - Die kanonische Standards-Dokumentation beschreibt das Modell einmal; Router und
   Menschenansichten verweisen darauf.
 
