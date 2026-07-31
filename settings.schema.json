@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "settings.schema.json",
+  "title": "Hierarchical AI settings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 2 },
+    "user_chat_lang": { "$ref": "#/$defs/language" },
+    "markdown_lang": { "$ref": "#/$defs/language" },
+    "git_doc_lang": { "$ref": "#/$defs/language" },
+    "code_doc_lang": { "$ref": "#/$defs/language" },
+    "store_user_sensitive_data": {
+      "enum": ["all", "none", "only_at_user_memory", "only_at_agent_memory"]
+    },
+    "default_ai_access": { "enum": ["allowed", "read-only", "denied"] },
+    "default_ai_execution": { "enum": ["denied", "safe", "ask", "allowed"] },
+    "default_ai_network": { "enum": ["denied", "public-read", "ask", "allowed"] },
+    "default_ai_secret_access": { "$ref": "#/$defs/permission" },
+    "default_ai_dependency_change": { "$ref": "#/$defs/permission" },
+    "default_ai_external_cost": { "$ref": "#/$defs/permission" },
+    "default_ai_git_commit": { "$ref": "#/$defs/permission" },
+    "default_ai_git_push": { "$ref": "#/$defs/permission" },
+    "default_ai_external_write": { "$ref": "#/$defs/permission" },
+    "default_ai_deploy": { "$ref": "#/$defs/permission" },
+    "default_ai_destructive": { "$ref": "#/$defs/permission" },
+    "default_ai_chat_logging": { "enum": ["off", "summary", "transcript"] },
+    "default_ai_memory_export": {
+      "enum": ["denied", "metadata-only", "sanitized", "allowed"]
+    },
+    "default_data_classification": {
+      "enum": ["public", "internal", "confidential", "restricted"]
+    },
+    "transcript_secret_handling": { "enum": ["redact", "preserve"] },
+    "chat_private_dir": { "type": "string", "minLength": 1 },
+    "chat_shared_dir": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "language": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    },
+    "permission": {
+      "enum": ["denied", "ask", "allowed"]
+    }
+  }
+}

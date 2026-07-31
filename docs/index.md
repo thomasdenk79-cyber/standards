@@ -29,7 +29,8 @@ Ein adaptives externes Gedächtnis für KI-Agenten auf Basis von Markdown und Gi
 
 ## Grundidee
 
-`AGENTS.md`-Dateien bilden vererbte, verzeichnisspezifische Router. Knappe Indizes und
+Markdown, YAML und weitere Konfigurationsdateien folgen der
+[hierarchischen Vererbung](shared/inheritance.md). Knappe Indizes und
 `READ-WHEN` laden Details erst bei Bedarf. Git bewahrt Historie und Begründungen; Projekt-,
 User- und Agent-Memory trennen die Zuständigkeit. Hot/warm/cold/archive und kombinierte
 Salienzsignale steuern,

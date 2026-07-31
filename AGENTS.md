@@ -18,6 +18,9 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 - Agent: GitHub Copilot CLI | model: runtime-selected | role: shared instruction maintenance
 - Hierarchische Vererbung, explizite Overrides, Zugriffsmarker und Memory-Routing sind in der
   kanonischen Vorlage abgebildet.
+- `docs\shared\inheritance.md` vereinheitlicht Erben, Ergänzen, Überschreiben und Negieren für
+  Markdown, YAML und weitere hierarchische Dateien; `scripts\settings.py` setzt die
+  Settings-Kette zentral um.
 - Das vendor-neutrale Repository-Wissensmodell trennt Fachanforderungen, Entscheidungen,
   Arbeitsstatus und Agentenanweisungen und skaliert vom Project Brief bis zur Traceability.
 - `scripts\test_docs.py` validiert das aufrufende Repository und überspringt MkDocs nur, wenn
@@ -43,10 +46,14 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 
 - Gemeinsame Best-Practice-Defaults einmal hier pflegen; Projektspezifisches und die endgültige
   Entscheidung über Übernahme, Override oder Deaktivierung bleiben beim Repository-Owner.
+- Markdown, YAML und andere hierarchische Dateien folgen
+  `docs\shared\inheritance.md`; Sonderregeln pro Dateityp nur bei technischem Bedarf.
 - Vor fachlicher Umsetzung muss die Repo-`AGENTS.md` auf die kanonischen Quellen für Vision,
   Ziele/Nicht-Ziele und Anforderungen/Changes verweisen. Der Umfang folgt Risiko und Reifegrad;
   unklare frühe Wünsche dürfen mit sichtbaren Annahmen beginnen.
-- Sprachdefaults kommen ausschließlich aus `C:\GIT\workspace-settings.yml`.
+- Generische Defaults kommen aus `settings.yml`; globale User-Abweichungen aus
+  `C:\GIT\user-memory\settings.yml`, optionale persönliche Abweichungen aus
+  `C:\GIT\user-memory\<username>\settings.yml`.
 - Technische Datei- und Verzeichnisnamen verwenden englisches ASCII-Kebab-Case. Historische
   Artefakte und extern vorgegebene/reservierte Namen wie `AGENTS.md`, `README.md`, `LICENSE`
   oder `CODEOWNERS` werden nicht nur aus Stilgründen umbenannt.

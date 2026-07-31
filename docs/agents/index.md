@@ -22,7 +22,7 @@ Modellgröße oder Autorität.
 Verbindlich sind ausschließlich:
 
 - `C:\GIT\agent-memory\manifest\CONSTITUTION.md` für Rollen und Konflikte;
-- `C:\GIT\agent-memory\meta\agent-principles.md` für Arbeitsprinzipien;
+- `C:\GIT\agent-memory\meta\principles.md` für Arbeitsprinzipien;
 - `C:\GIT\agent-memory\agents\{name}\` für modellbezogene Identität;
 - die anwendbare `AGENTS.md`-Kette für den jeweiligen Arbeitsbereich.
 

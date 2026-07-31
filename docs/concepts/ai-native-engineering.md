@@ -26,8 +26,9 @@ Kontrollen richten sich nach Risiko und Nutzen.
    Evals, Messwerte oder Review bestätigt.
 3. **Minimale Rechte (Least Privilege):** Agenten erhalten nur notwendige Dateien, Tools, Netzwerkziele und
    Berechtigungen.
-4. **Eine Wahrheit:** Code, Konfiguration und Entscheidungen haben je eine kanonische Quelle;
-   andere Sichten werden erzeugt oder verlinkt.
+4. **SSOT und DRY:** Code, Konfiguration, Pfade und Entscheidungen haben je eine kanonische
+   Quelle; andere Sichten werden erzeugt, verlinkt oder als
+   [explizite Vererbung](../shared/inheritance.md) geführt.
 5. **Beobachtbar und lernfähig:** Fehler werden korreliert, Ursachen beseitigt und als Test,
    Eval oder Regel dauerhaft abgesichert.
 

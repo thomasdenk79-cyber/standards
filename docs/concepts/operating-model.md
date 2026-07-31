@@ -23,13 +23,14 @@ gelten die unten verlinkten kanonischen Dateien.
 | Thema | Einzige kanonische Quelle (Single Source of Truth) |
 |---|---|
 | Globale Pflichten, Vererbung, Zugriff, Routing | `C:\GIT\AGENTS.md` |
+| Allgemeines Vererbungsmodell | `C:\GIT\standards\docs\shared\inheritance.md` |
 | Gemeinsame Dokumentation und Vorlagen | `C:\GIT\standards\AGENTS.md` |
 | Projektzustand und lokale Regeln | nächste anwendbare `{repo}\AGENTS.md` |
 | Projektvision und Fachanforderungen | durch die Repo-`AGENTS.md` verlinkter Project Brief beziehungsweise Requirements-Datei |
 | User-Kontext | `C:\GIT\user-memory\AGENTS.md` und `profile.md` |
 | Agent-Memory-Struktur | `C:\GIT\agent-memory\meta\memory-architecture.md` |
 | Gewichtung und Verdichtung | `C:\GIT\agent-memory\meta\memory-consolidation.md` |
-| Agent-Grundsätze und Konflikte | `agent-principles.md` und `manifest\CONSTITUTION.md` |
+| Agent-Grundsätze und Konflikte | `principles.md` und `manifest\CONSTITUTION.md` |
 | Workspace-Entscheidungen | `C:\GIT\.memory\decisions.md` |
 
 ## Vier Achsen

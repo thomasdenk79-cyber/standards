@@ -36,7 +36,7 @@ DOCS_DIR    = REPO_ROOT / "docs"
 MKDOCS_YML  = REPO_ROOT / "mkdocs.yml"
 AGENTS_MD   = REPO_ROOT / "AGENTS.md"
 SESSION_LOG = Path("C:/GIT/user-memory/session-log.md")
-SETTINGS_VALIDATOR = SCRIPT_REPO_ROOT / "scripts" / "validate_workspace_settings.py"
+SETTINGS_VALIDATOR = SCRIPT_REPO_ROOT / "scripts" / "validate_settings.py"
 atexit.register(shutil.rmtree, SITE_DIR, ignore_errors=True)
 
 

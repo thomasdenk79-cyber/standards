@@ -33,6 +33,9 @@ dass jedes Team dieselben Grundfragen unabhängig und widersprüchlich neu löse
 autorisierte Repository-Owner entscheidet dennoch abschließend über Arbeitsweise, Dokumentation
 und Agentennutzung in seinem Scope.
 
+Die allgemeine Semantik für Erben, Ergänzen, Überschreiben und Negieren steht ausschließlich
+unter [Hierarchische Vererbung](inheritance.md).
+
 - Ohne lokalen Override gelten die geerbten Workspace-/Parent-Defaults.
 - Ein Repo darf einzelne Defaults übernehmen, konkretisieren, ersetzen oder deaktivieren.
 - Ein Repo darf Agentenzugriff auf `read-only` setzen oder mit `AI-ACCESS: denied` vollständig
@@ -67,6 +70,9 @@ eindeutige Verweise aus der Repo-`AGENTS.md`.
 
 - Eigene technische Dateien verwenden lowercase ASCII-Kebab-Case, zum Beispiel
   `project-brief.md`, `requirements.md`, `todo.md` und `handover.md`.
+- Pfad und Dateiname folgen gemeinsam SSOT und DRY: Der Pfad trägt den Kontext, der Dateiname
+  nur die darin noch nötige Rolle. Kontextpräfixe werden nicht ohne unterscheidenden Nutzen
+  wiederholt.
 - Reservierte oder weithin automatisch erkannte Ökosystemnamen bleiben unverändert:
   `AGENTS.md`, `README.md`, `LICENSE`, `CONTRIBUTING.md`, `CHANGELOG.md` und `CODEOWNERS`.
 - Vendor-Dateien verwenden exakt die vom Werkzeug erwartete Schreibweise und Endung.
@@ -139,6 +145,24 @@ Projektgebundene Tasks bleiben im Fach-Repo. Repoübergreifende oder noch keinem
 zuordenbare Arbeit darf in einer gemeinsamen Agenten-Inbox liegen und wird verschoben oder
 verlinkt, sobald ein fachlicher Owner existiert. Persönliches Agent-Memory ist keine gemeinsame
 Taskquelle.
+
+### Aufgabenbezogener Abruf
+
+Optional bedeutet **bei Bedarf**, nicht **ignorierbar**. Eine Markdown-Datei wird geladen,
+sobald ein direkter Verweis, die User-Frage oder die aktuelle Aufgabe ihren Inhalt relevant
+macht. Der Agent sucht gezielt nach passenden Quellen, statt alle optionalen Dateien beim
+Startup zu lesen.
+
+Bei Fragen wie „Welche TODOs stehen an?“ umfasst die Suche im anwendbaren Scope mindestens:
+
+- aktive `AGENTS.md`-Router und deren Fachanker;
+- Memory-Indizes und die gemeinsame Inbox;
+- `todo*.md`, `task*.md` und relevante `handover*.md`;
+- den vom Projekt benannten Issue-Tracker oder Taskbereich.
+
+Treffer werden über ihre kanonischen Verweise zusammengeführt. Historische Reports,
+abgeschlossene Checklisten und duplizierte Handovers sind keine zusätzlichen aktuellen
+Aufgabenquellen.
 
 ### Recovery-Reihenfolge nach Crash oder Agentenwechsel
 

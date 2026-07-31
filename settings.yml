@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=./settings.schema.json
+schema_version: 2
+
+# Vendor-neutral best-practice defaults. User settings and authorized repository policies may
+# override them within their scope.
+user_chat_lang: en
+markdown_lang: en
+git_doc_lang: en
+code_doc_lang: en
+store_user_sensitive_data: none
+
+default_ai_access: read-only
+default_ai_execution: safe
+default_ai_network: public-read
+default_ai_secret_access: ask
+default_ai_dependency_change: ask
+default_ai_external_cost: ask
+default_ai_git_commit: ask
+default_ai_git_push: ask
+default_ai_external_write: ask
+default_ai_deploy: denied
+default_ai_destructive: ask
+default_ai_chat_logging: summary
+default_ai_memory_export: sanitized
+default_data_classification: internal
+
+# Best practice is redaction. An authorized user may choose preserve for their protected private
+# transcript archive and accepts responsibility for its storage and access controls.
+transcript_secret_handling: redact
+
+chat_private_dir: user-memory/why/conversations
+chat_shared_dir: standards/why/conversations

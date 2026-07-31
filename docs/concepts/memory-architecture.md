@@ -30,10 +30,11 @@ flowchart TD
 
 ## Prinzipien
 
-- **Vererbung:** Die nächste anwendbare `AGENTS.md` konkretisiert oder überschreibt benannte
-  Defaults für ihren Unterbaum.
+- **Vererbung:** Die nächste anwendbare Ebene erbt, ergänzt, überschreibt oder negiert Aussagen
+  nach dem [gemeinsamen Workspace-Modell](../shared/inheritance.md).
 - **Selektiver Abruf:** Ein knapper Index verweist per `READ-WHEN` auf tiefe Details.
-- **SSOT:** Operative Regeln stehen einmal kanonisch; Erklärseiten verlinken dorthin.
+- **SSOT und DRY:** Operative Regeln und ihr Kontext stehen einmal kanonisch; Erklärseiten
+  verlinken dorthin.
 - **Zugriffstemperatur:** Hot/warm/cold/archive beschreibt Zugriff, nicht Wahrheit.
 - **Verdichtung:** Details bleiben rekonstruierbar, während aktive Sichten knapp bleiben.
 

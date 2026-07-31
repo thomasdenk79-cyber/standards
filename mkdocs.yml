@@ -18,6 +18,7 @@ nav:
   - 📂 Repositories: repos/index.md
   - 🤖 Agenten: agents/index.md
   - 📚 Gemeinsam:
+    - Hierarchische Vererbung: shared/inheritance.md
     - Repository-Wissensmodell: shared/repository-knowledge.md
     - Forschungsgrundlagen: shared/research-foundations.md
     - Datenhandhabung: shared/data-handling.md

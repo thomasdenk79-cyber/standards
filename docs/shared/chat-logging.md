@@ -36,7 +36,8 @@ der Arbeit zusätzlich in ihre Zieldateien geroutet.
    Sie enthält Agent, exakte Model-ID, Session-ID, Zeitraum, Format, Klassifizierung, Zweck und
    nach Abschluss den SHA-256-Hash des unveränderten Exports.
 5. `off`, `summary` oder eine strengere lokale Policy können die private Aufzeichnung begrenzen.
-   Ohne solchen Override gilt der Workspace-Default aus `workspace-settings.yml`.
+   Ohne solchen Override gelten `standards/settings.yml`, `user-memory/settings.yml` und eine
+   vorhandene `user-memory/<username>/settings.yml` in dieser Reihenfolge.
 6. Im `chat_shared_dir` liegt **kein zweites Rohprotokoll**, sondern eine bereinigte fachliche
    WHY-Verdichtung für jede Session, die versionierte Artefakte ändert oder eine dauerhafte
    Entscheidung trifft. Dort entfallen Personenbezug, Vertrauliches, Sensibles, interne Pfade

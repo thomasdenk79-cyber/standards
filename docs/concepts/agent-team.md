@@ -21,7 +21,7 @@ Unterschiedliche Modelle dürfen widersprechen; Evidenz und Reversibilität ents
 Die verbindlichen Quellen sind:
 
 - `C:\GIT\agent-memory\manifest\CONSTITUTION.md` für Rollen und Konfliktprotokoll;
-- `C:\GIT\agent-memory\meta\agent-principles.md` für operative Arbeitsprinzipien;
+- `C:\GIT\agent-memory\meta\principles.md` für operative Arbeitsprinzipien;
 - `C:\GIT\agent-memory\agents\{name}\` für modellbezogene Identität und Korrekturen.
 
 Diese Trennung verhindert, dass eine MkDocs-Erklärseite unbemerkt zu einem zweiten Regelwerk
