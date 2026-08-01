@@ -47,3 +47,14 @@ würde deshalb unbemerkt Semantik und Historie verlieren.
 - Der lokale Snapshot und das Manifest wurden auf erwartete Objektmengen geprüft.
 - Alle Python-Skripte wurden kompiliert.
 - Ignorierregeln und Diff wurden auf Rohdaten sowie Zugangsdaten geprüft.
+
+## Follow-up: kontrollierter Fünfer-Pilot
+
+- Für einen ausdrücklich gewünschten Pilot dürfen Einzelpersonenfelder deterministisch nur
+  die erste Quellzuordnung erhalten; verworfene weitere Personen bleiben als Warnung sichtbar.
+- Gerichtete Voraussetzungen werden als Blocker-Link erhalten, symmetrische Beziehungen als
+  Relates-Link.
+- Ein vollständig valides Manifest beweist noch keine Schreibberechtigung. Create-, Assign-
+  und Link-Rechte werden vor jedem Testprojekt separat geprüft.
+- Fehlen diese Rechte, bleibt der Lauf read-only und dokumentiert exakt die notwendige
+  Berechtigungs- oder Projektentscheidung.
