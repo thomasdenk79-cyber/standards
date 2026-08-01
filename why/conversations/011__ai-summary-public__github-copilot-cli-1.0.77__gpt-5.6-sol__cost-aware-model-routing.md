@@ -30,10 +30,18 @@ Aufgaben eingesetzt werden, deren Risiko oder Komplexitaet sie nicht verlaesslic
   beobachtbare Abnahmesignale.
 - Datenklassifizierung, Providerfreigabe und Netz-/Secret-Policies gehen stets vor Preis.
   Maximal ein lokales LLM darf gleichzeitig laufen.
+- Der Entwicklungsrechner besitzt hohe CPU-Kapazitaet, eine schnelle SSD und rund 200 GB RAM.
+  Diese Ressourcen ersetzen API-Tokenarbeit: Suche, Inventar, Builds, Tests, Lints und
+  Ergebnisaggregation laufen lokal mit vier bis sechs Prozessen oder nativer Parallelitaet.
+  Standard ist ein, maximal zwei konfliktfreie LLM-Coding-Worker. Die Grenze von einem lokalen
+  LLM bleibt wegen der separaten 12-GB-VRAM-Grenze bestehen.
+- Ein schnellerer Coder wird nach API-Input-Tokens und Zeit bis zum akzeptierten gruenen Patch
+  bewertet. Erst Routinekontext unter 16k bringen, lokale Fakten verdichten und doppelte
+  Modellreviews vermeiden; danach Kandidaten mit identischen Aufgaben vergleichen.
 
 ## Abnahme
 
-Die Kurzregel steht im globalen Router. Die ausfuehrliche Auswahlmatrix, Kontextgrenzen und
-Eskalationsleiter stehen in `.memory/model-routing.md`. Neue reproduzierbare Benchmarks duerfen
-einzelne Modelle ersetzen, nicht aber die risikobasierte Eskalationslogik oder die Quality
-Gates.
+Die Kurzregel und das lokale Parallelbudget stehen im globalen Router. Die ausfuehrliche
+Auswahlmatrix, Kontextgrenzen, Parallelstrategie und Eskalationsleiter stehen in
+`.memory/model-routing.md`. Neue reproduzierbare Benchmarks duerfen einzelne Modelle ersetzen,
+nicht aber die risikobasierte Eskalationslogik oder die Quality Gates.
