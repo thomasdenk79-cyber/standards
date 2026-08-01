@@ -23,6 +23,8 @@ nav:
     - Forschungsgrundlagen: shared/research-foundations.md
     - Datenhandhabung: shared/data-handling.md
     - Chat-Protokollierung: shared/chat-logging.md
+    - Optionaler Arbeitsindex: shared/working-index.md
+    - Multi-Agent-Koordination: shared/multi-agent-coordination.md
 
 theme:
   icon:

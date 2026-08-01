@@ -58,3 +58,11 @@ würde deshalb unbemerkt Semantik und Historie verlieren.
   und Link-Rechte werden vor jedem Testprojekt separat geprüft.
 - Fehlen diese Rechte, bleibt der Lauf read-only und dokumentiert exakt die notwendige
   Berechtigungs- oder Projektentscheidung.
+
+Nach ausdrücklicher Freigabe eines beschreibbaren Projekts wurde der Pilot angewandt:
+
+- Idempotenzschlüssel verhinderten Duplikate beim Wiederholungslauf.
+- Nicht zuweisbare Quellpersonen wurden nicht durch einen Import-User ersetzt.
+- Unerreichbare Zielstatus blieben als explizite Workflow-Blockade auf dem tatsächlich
+  erreichten Status stehen.
+- Beschreibung, Herkunftskommentare und Apply-Fortschritt blieben getrennt nachvollziehbar.

@@ -22,7 +22,9 @@ Die verbindlichen Quellen sind:
 
 - `C:\GIT\agent-memory\manifest\CONSTITUTION.md` für Rollen und Konfliktprotokoll;
 - `C:\GIT\agent-memory\meta\principles.md` für operative Arbeitsprinzipien;
-- `C:\GIT\agent-memory\agents\{name}\` für modellbezogene Identität und Korrekturen.
+- `C:\GIT\agent-memory\agents\{name}\` für modellbezogene Identität und Korrekturen;
+- [Multi-Agent-Koordination](../shared/multi-agent-coordination.md) für das vorgeschlagene
+  team- und repositoryübergreifende Betriebsmodell.
 
 Diese Trennung verhindert, dass eine MkDocs-Erklärseite unbemerkt zu einem zweiten Regelwerk
 wird.

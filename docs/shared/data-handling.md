@@ -42,10 +42,12 @@ Weiterverwendung bleibt zweckgebunden. Secrets, Zugangsdaten und private Schlüs
 User-Memory-Daten und werden bei keinem Wert gespeichert. Es gilt Datenminimierung: so wenig
 Detail und so kurze Aufbewahrung wie für den konkreten Zweck nötig.
 
-Bei `AI-CHAT-LOGGING: transcript` liegt der native Rohchat unabhängig davon **1:1** im privaten
-`chat_private_dir`; nur echte Secrets werden sichtbar redigiert. Eine bereinigte
-WHY-Zusammenfassung im Shared-Repo ist eine neue, öffentliche Ableitung und enthält weder
-personenbezogene noch vertrauliche oder sensible Informationen.
+Bei `AI-CHAT-LOGGING: transcript` liegt der native Rohchat im privaten `chat_private_dir`.
+Best-Practice ist `transcript_secret_handling: redact`; ein autorisierter User darf für seinen
+entsprechend geschützten privaten Speicher `preserve` wählen und übernimmt dafür die
+Verantwortung. Eine bereinigte WHY-Zusammenfassung im Shared-Repo ist eine neue öffentliche
+oder interne Ableitung und enthält weder personenbezogene noch vertrauliche oder sensible
+Informationen.
 
 ## Grenzen
 

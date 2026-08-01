@@ -84,6 +84,7 @@ Nach jedem bedeutenden Befund, Meilenstein, Themenwechsel und vor Abschluss/Komp
 | Information | Ziel |
 |---|---|
 | Technischer Stand, Befehle, TODOs, Fallstricke | Diese `AGENTS.md` oder verlinktes Handover |
+| Fachlich neutrales WHY für materielle Änderungen | Zentral `C:\GIT\standards\why\conversations\`; Commit nennt den exakten `why-ref` |
 | Persönlicher User-Kontext | `C:\GIT\user-memory\profile.md` |
 | Cross-Repo-Session-Handoff | `C:\GIT\user-memory\session-log.md` |
 | Wiederverwendbare Agent-Erkenntnis | Über `C:\GIT\agent-memory\INDEX.md` routen |
@@ -116,6 +117,9 @@ Set-Location -LiteralPath C:\GIT\{repo-name}
 <type>(<scope>): <what> -- <why>
 
 why-ref: <sanitized conversation summary, ticket or ADR>
-agent: <name> | model: <provider/model-id> | role: <role>
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+agent: <tool-name> | model: <provider/model-id> | role: <role>
 ```
+
+Mehrere Belege mit ` · ` trennen. Bei materieller Agent-Arbeit die zentrale bereinigte
+Zusammenfassung als exakten Workspace-relativen Pfad unter `standards/why/conversations`
+angeben. Private Originale aus `user-memory` niemals in Git referenzieren.

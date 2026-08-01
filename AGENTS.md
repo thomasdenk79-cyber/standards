@@ -23,6 +23,8 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
   Settings-Kette zentral um.
 - Das vendor-neutrale Repository-Wissensmodell trennt Fachanforderungen, Entscheidungen,
   Arbeitsstatus und Agentenanweisungen und skaliert vom Project Brief bis zur Traceability.
+- `scripts\sync_chat_logs.py` verbindet optional erlaubte private Rohsnapshots und zentrale,
+  neutrale WHY-Verdichtungen über eine gemeinsame fortlaufende Chatnummer.
 - `scripts\test_docs.py` validiert das aufrufende Repository und überspringt MkDocs nur, wenn
   dort keine Konfiguration existiert.
 
@@ -39,6 +41,8 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 - Dokumentationsstruktur: relevante Datei unter `docs\shared\` oder `docs\templates\`
 - Klassifizierung oder sensible Daten: `docs\shared\data-handling.md`
 - Gesprächsbelege: `docs\shared\chat-logging.md`
+- Große operative Detailmengen/SQLite: `docs\shared\working-index.md`
+- Teamübergreifende Agentenkoordination: `docs\shared\multi-agent-coordination.md`
 - Doku-Validierung: `scripts\test_docs.py`
 - MkDocs-Vererbung: `mkdocs-base.yml`
 
@@ -63,6 +67,8 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
   derselben Änderung aktualisiert.
 - Nicht alle `docs\` beim Startup laden; nur aufgabenrelevanten Verweisen folgen.
 - Dokumentationsänderungen mit den vorhandenen Tests validieren.
+
+
 
 ## Memory-Routing
 
