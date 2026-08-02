@@ -26,6 +26,18 @@ Zweck / Warum: Knapper Wiederaufsetzpunkt für aktive, unvollständige Arbeit.
 | Blocker/Annahmen | {knapp und entscheidungsrelevant} |
 | Nächste Aktion | `{genau ein ausführbarer Befehl oder Schritt}` |
 
+## Crash-/Resume-Zustand
+
+> Diesen Abschnitt nur für einen SQLite-gestützten langen Workflow führen.
+
+| Feld | Stand |
+|---|---|
+| Workflow-ID | `{stabile ID}` |
+| SQLite | `{repo-relativer Pfad}` |
+| Schema-Version | `{Version}` |
+| Letzter Checkpoint | `{Work Item, Status und ISO-8601}` |
+| Resume-Befehl | `{exakter, idempotenter Befehl}` |
+
 ## Noch offen
 
 - [ ] {kleinste verifizierbare Einheit}

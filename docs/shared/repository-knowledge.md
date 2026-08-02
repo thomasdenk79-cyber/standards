@@ -101,6 +101,7 @@ wenn sie eine eigene kanonische Aufgabe erfüllt.
 | `decision-log.md` oder `adr/` | Folgenreiche Entscheidungen, Alternativen, Status | Bei langlebigen oder kontroversen Entscheidungen |
 | `taskboard.md`, `todo.md` oder Issues | Eine kanonische Aufgabenquelle | Wenn offene Arbeit koordiniert werden muss |
 | `handover.md` | Aktiver Wiederaufsetzpunkt | Nur bei unvollständiger/schwer rekonstruierbarer Arbeit |
+| SQLite-Arbeitsindex | Atomare Checkpoints und viele operative Einheiten | Bei langen, batchartigen oder absturzgefährdeten Workflows |
 | `runbook.md` | Normalbetrieb, Diagnose und wiederholbare Operator-Aktionen | Bei betriebenen Systemen |
 | `recovery.md` | Restore/Disaster-Recovery mit RPO/RTO und Prüfung | Bei zustandsbehafteten oder kritischen Systemen |
 | `test-strategy.md` oder `test-plan.md` | Testebenen, Risiken, Umgebungen, Abnahme | Wenn Tests nicht aus Build/CI und Requirements hervorgehen |
@@ -123,6 +124,7 @@ Git, Session-Autosave und Projektdokumente lösen verschiedene Probleme:
 | Git-Status, Diff und Log | geänderte Dateien, Inhalt, Historie | Absicht, letzter geprüfter Zustand, nächster Schritt |
 | Issue-Tracker oder Taskboard | gemeinsamer Backlog und Status | lokaler uncommitteter Zwischenstand |
 | `handover.md` | knapper aktiver Wiederaufsetzpunkt | langfristige Anforderungen oder vollständige Historie |
+| optionaler SQLite-Arbeitsindex | atomare Workflowzustände, Abhängigkeiten und Checkpoints | fachliche Wahrheit oder portabler Git-Verlauf |
 | nativer Session-Store/Transcript | Gespräch, Toolablauf und Crash-Recovery | aktuelle kanonische Wahrheit |
 | Changelog/Releases | ausgelieferte Änderungen | offene Arbeit |
 
@@ -133,7 +135,11 @@ Git, Session-Autosave und Projektdokumente lösen verschiedene Probleme:
   archivieren, statt eine endlose Startdatei zu erzeugen.
 - **Handover:** nur bei aktiver, unvollständiger oder schwer rekonstruierbarer Arbeit. Enthält
   Task/Requirement, letzten verifizierten Zustand, betroffene Dateien, Blocker und genau den
-  nächsten Befehl. Die aktuelle Sicht wird aktualisiert; Git bewahrt ihre Historie.
+  nächsten Befehl. Bei SQLite-gestützten Abläufen außerdem Workflow-ID, DB-Pfad, letzten
+  Checkpoint und Resume-Befehl. Die aktuelle Sicht wird aktualisiert; Git bewahrt ihre Historie.
+- **SQLite-Arbeitsindex:** pro langem Workflow/Kampagne statt pauschal pro Repo oder Agent.
+  Er ergänzt Handover und Taskquelle um atomare operative Details; das Referenzmodell steht in
+  [`working-index.md`](working-index.md).
 - **`resume.md`:** standardmäßig nicht anlegen. Sie wäre semantisch ein zweiter Handover und
   würde driften.
 - **`recovery.md`:** nur für technische Betriebswiederherstellung, etwa Datenbank, Deployment,
@@ -169,9 +175,11 @@ Aufgabenquellen.
 1. Native Session fortsetzen, wenn sie verfügbar und gesund ist.
 2. `git status`, `git diff` und jüngere relevante Commits prüfen.
 3. Repo-Router und aktiven Task/Handover lesen.
-4. Nur die verlinkten Requirements, Decisions und Tests laden.
-5. Transcript gezielt durchsuchen, falls Absicht oder Begründung weiterhin fehlt.
-6. Letzten dokumentierten Check erneut ausführen, bevor Erfolg behauptet wird.
+4. Falls verlinkt: SQLite-Workflow und tatsächlich laufende Prozesse prüfen; veraltete
+   `in_progress`-Einträge nicht ungeprüft fortsetzen.
+5. Nur die verlinkten Requirements, Decisions und Tests laden.
+6. Transcript gezielt durchsuchen, falls Absicht oder Begründung weiterhin fehlt.
+7. Letzten dokumentierten Check erneut ausführen, bevor Erfolg behauptet wird.
 
 Ein vollständiger Chat ist **append-only Evidenz**, aber kein Startup-Dokument. Laufzeiten sollen
 ihn automatisch und crash-sicher speichern; manuelle Rekonstruktionen sind unzuverlässig. Exporte

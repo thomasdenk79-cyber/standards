@@ -64,6 +64,7 @@ selbst verändern.
 | Architektur und technische Grenzen | `{docs/project/architecture.md oder gleichwertig}` |
 | Entscheidungen und verworfene Alternativen | `{Decision Log, ADR-Verzeichnis oder Git-Historie}` |
 | Aktueller Arbeitsstatus | `{Taskboard, Issue-Tracker oder Handover}` |
+| Crash-/Resume-Zustand | `{nicht erforderlich oder Pfad, Workflow-ID und Resume-Befehl}` |
 | Tests und Abnahmesignale | `{Testpfad, Runbook oder Abnahmeplan}` |
 
 Die gemeinsame Trennung und das skalierbare Anforderungsmodell stehen in
@@ -90,6 +91,19 @@ Nach jedem bedeutenden Befund, Meilenstein, Themenwechsel und vor Abschluss/Komp
 | Wiederverwendbare Agent-Erkenntnis | Über `C:\GIT\agent-memory\INDEX.md` routen |
 
 Nicht auf die Aufforderung "merk dir das" oder ein erkennbares Session-Ende warten.
+
+## Crash-/Resume-Zustand
+
+> Für kurze Aufgaben `nicht erforderlich` angeben. Lange Batchläufe, Kampagnen oder
+> absturzgefährdete Workflows verwenden einen ignorierten SQLite-Arbeitsindex pro Workflow,
+> nicht pro Agent. Pfad, Schema, letzter Checkpoint und Resume-Befehl hier oder im verlinkten
+> Handover dokumentieren. Details:
+> `C:\GIT\standards\docs\shared\working-index.md`.
+
+- **Workflow-ID:** `{nicht erforderlich oder stabile ID}`
+- **SQLite:** `{nicht erforderlich oder .agent-state\<workflow-id>.sqlite3}`
+- **Letzter Checkpoint:** `{Zeit, Work Item und verifizierter Zustand}`
+- **Resume:** `{genauer Befehl oder Schritt}`
 
 ## Offene Arbeit (optional)
 
