@@ -27,13 +27,16 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
   neutrale WHY-Verdichtungen über eine gemeinsame fortlaufende Chatnummer.
 - `scripts\local_model_lease.py` koordiniert lokale Ollama-/llama.cpp-Ressourcen
   workspaceübergreifend mit atomarer Lease, Expiry, Wait und owner-sicherem Release.
+- `scripts\ai_runtime.py` erzwingt das wirtschaftliche Kontextbudget, protokolliert nur
+  Nutzungsmetadaten und blockiert lokale Worker bei Lease-, manuellen oder Gaming-Blockern.
 - `scripts\test_docs.py` validiert das aufrufende Repository und überspringt MkDocs nur, wenn
   dort keine Konfiguration existiert.
 
 ## Nächster Schritt
 
-- Neue lokale Modell-Entrypoints an Resource-ID `local-llm` anbinden; Siemens-Modelle bleiben
-  für freigegebene Routine-Codepakete bevorzugt.
+- Lokale Modell-Entrypoints über `scripts\start_ai_worker.ps1` an Runtime-Guard und
+  Resource-ID `local-llm` anbinden; Siemens-Modelle bleiben für freigegebene
+  Routine-Codepakete bevorzugt.
 - `docs\templates\agents-template.md` für neue erlaubte Projekt-Router verwenden.
 
 ## Bedarfsabhängige Vertiefungen
@@ -48,6 +51,7 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 - Teamübergreifende Agentenkoordination: `docs\shared\multi-agent-coordination.md`
 - Modellwahl, Delegation oder kostenintensive Langzeitaufgabe:
   `C:\GIT\.memory\model-routing.md`
+- Runtime-Guard, OpenCode-Cap oder lokale Gaming-Blocker: `docs\shared\ai-runtime.md`
 - Doku-Validierung: `scripts\test_docs.py`
 - MkDocs-Vererbung: `mkdocs-base.yml`
 

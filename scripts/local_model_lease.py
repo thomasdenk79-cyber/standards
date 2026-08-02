@@ -57,6 +57,10 @@ class LeaseExpiredError(LeaseError):
     """Raised when a lease can no longer be renewed."""
 
 
+class LeaseBlockedError(LeaseError):
+    """Raised when a workspace blocker makes local model work unavailable."""
+
+
 def utc_now() -> dt.datetime:
     return dt.datetime.now(dt.timezone.utc)
 
@@ -226,11 +230,20 @@ class LeaseManager:
         clock: Callable[[], dt.datetime] = utc_now,
         monotonic: Callable[[], float] = time.monotonic,
         sleeper: Callable[[float], None] = time.sleep,
+        availability_check: Optional[Callable[[], Optional[str]]] = None,
     ) -> None:
         self.root = Path(root) if root is not None else default_lease_root()
         self.clock = clock
         self.monotonic = monotonic
         self.sleeper = sleeper
+        self.availability_check = availability_check
+
+    def _ensure_available(self) -> None:
+        if self.availability_check is None:
+            return
+        reason = self.availability_check()
+        if reason:
+            raise LeaseBlockedError(f"local model resource is blocked: {reason}")
 
     def _paths(self, resource_id: str) -> tuple[Path, Path]:
         key = _resource_key(resource_id)
@@ -312,6 +325,7 @@ class LeaseManager:
         deadline = self.monotonic() + wait_seconds
 
         while True:
+            self._ensure_available()
             remaining = max(0.0, deadline - self.monotonic())
             with self._guard(resource_id, min(2.0, remaining)):
                 now = self.clock().astimezone(dt.timezone.utc)
@@ -352,6 +366,7 @@ class LeaseManager:
         *,
         ttl_seconds: Optional[float] = None,
     ) -> LeaseMetadata:
+        self._ensure_available()
         with self._guard(resource_id, 2.0):
             existing = self._read(resource_id)
             if existing is None:
