@@ -25,13 +25,16 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
   Arbeitsstatus und Agentenanweisungen und skaliert vom Project Brief bis zur Traceability.
 - `scripts\sync_chat_logs.py` verbindet optional erlaubte private Rohsnapshots und zentrale,
   neutrale WHY-Verdichtungen über eine gemeinsame fortlaufende Chatnummer.
+- `scripts\local_model_lease.py` koordiniert lokale Ollama-/llama.cpp-Ressourcen
+  workspaceübergreifend mit atomarer Lease, Expiry, Wait und owner-sicherem Release.
 - `scripts\test_docs.py` validiert das aufrufende Repository und überspringt MkDocs nur, wenn
   dort keine Konfiguration existiert.
 
 ## Nächster Schritt
 
-- `docs\templates\agents-template.md` verwenden, wenn ein erlaubtes Projekt einen neuen Router
-  benötigt. In fremden oder owner-kontrollierten Repositories vorher die Policy prüfen.
+- Neue lokale Modell-Entrypoints an Resource-ID `local-llm` anbinden; Siemens-Modelle bleiben
+  für freigegebene Routine-Codepakete bevorzugt.
+- `docs\templates\agents-template.md` für neue erlaubte Projekt-Router verwenden.
 
 ## Bedarfsabhängige Vertiefungen
 
@@ -43,6 +46,8 @@ MkDocs-Konfiguration, Qualitätsprüfungen und Projektvorlagen.
 - Gesprächsbelege: `docs\shared\chat-logging.md`
 - Große operative Detailmengen/SQLite: `docs\shared\working-index.md`
 - Teamübergreifende Agentenkoordination: `docs\shared\multi-agent-coordination.md`
+- Modellwahl, Delegation oder kostenintensive Langzeitaufgabe:
+  `C:\GIT\.memory\model-routing.md`
 - Doku-Validierung: `scripts\test_docs.py`
 - MkDocs-Vererbung: `mkdocs-base.yml`
 

@@ -41,7 +41,7 @@ Aufgaben eingesetzt werden, deren Risiko oder Komplexitaet sie nicht verlaesslic
 
 ## Abnahme
 
-Die Kurzregel und das lokale Parallelbudget stehen im globalen Router. Die ausfuehrliche
+Die Kurzregel und das lokale Parallelbudget stehen im globalen Router. Die ausführliche
 Auswahlmatrix, Kontextgrenzen, Parallelstrategie und Eskalationsleiter stehen in
-`.memory/model-routing.md`. Neue reproduzierbare Benchmarks duerfen einzelne Modelle ersetzen,
-nicht aber die risikobasierte Eskalationslogik oder die Quality Gates.
+`.memory/model-routing.md`. Neue reproduzierbare Benchmarks dürfen einzelne
+Modelle ersetzen, nicht aber die risikobasierte Eskalationslogik oder die Quality Gates.

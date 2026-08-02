@@ -1,4 +1,5 @@
 site/
 .cache/
 __pycache__/
+.test-state/
 .chat/
