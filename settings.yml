@@ -1,6 +1,10 @@
 # yaml-language-server: $schema=./settings.schema.json
 schema_version: 2
 
+# Settings are always loaded; these flags gate only memory content.
+load_user_memory: false
+load_agent_memory: false
+
 # Vendor-neutral best-practice defaults. User settings and authorized repository policies may
 # override them within their scope.
 user_chat_lang: en

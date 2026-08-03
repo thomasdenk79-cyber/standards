@@ -7,6 +7,8 @@
   "required": ["schema_version"],
   "properties": {
     "schema_version": { "type": "integer", "const": 2 },
+    "load_user_memory": { "type": "boolean" },
+    "load_agent_memory": { "type": "boolean" },
     "user_chat_lang": { "$ref": "#/$defs/language" },
     "markdown_lang": { "$ref": "#/$defs/language" },
     "git_doc_lang": { "$ref": "#/$defs/language" },

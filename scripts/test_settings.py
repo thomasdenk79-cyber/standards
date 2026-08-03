@@ -19,6 +19,8 @@ class SettingsTests(unittest.TestCase):
             "standards/settings.yml",
             """
 schema_version: 2
+load_user_memory: false
+load_agent_memory: false
 user_chat_lang: en
 markdown_lang: en
 default_ai_access: read-only
@@ -34,6 +36,8 @@ default_ai_execution: safe
   "required": ["schema_version"],
   "properties": {
     "schema_version": {"type": "integer", "const": 2},
+    "load_user_memory": {"type": "boolean"},
+    "load_agent_memory": {"type": "boolean"},
     "user_chat_lang": {"type": "string"},
     "markdown_lang": {"type": "string"},
     "default_ai_access": {"enum": ["allowed", "read-only", "denied"]},
@@ -77,6 +81,19 @@ default_ai_execution: safe
 
         self.assertEqual(effective["markdown_lang"], "de")
         self.assertEqual(effective["user_chat_lang"], "en")
+        self.assertIs(effective["load_user_memory"], False)
+        self.assertIs(effective["load_agent_memory"], False)
+
+    def test_memory_loading_can_be_enabled_by_user_override(self) -> None:
+        self.write(
+            "user-memory/settings.yml",
+            "schema_version: 2\nload_user_memory: true\nload_agent_memory: true\n",
+        )
+
+        effective = settings.load_settings(self.root, "alex")
+
+        self.assertIs(effective["load_user_memory"], True)
+        self.assertIs(effective["load_agent_memory"], True)
 
     def test_unknown_override_is_rejected(self) -> None:
         self.write(
@@ -94,6 +111,15 @@ default_ai_execution: safe
         )
 
         with self.assertRaisesRegex(ValueError, "unrestricted"):
+            settings.load_settings(self.root, "alex")
+
+    def test_non_boolean_memory_loading_is_rejected(self) -> None:
+        self.write(
+            "user-memory/settings.yml",
+            "schema_version: 2\nload_user_memory: disabled\n",
+        )
+
+        with self.assertRaisesRegex(ValueError, "expected boolean"):
             settings.load_settings(self.root, "alex")
 
     def test_invalid_user_identifier_is_rejected(self) -> None:

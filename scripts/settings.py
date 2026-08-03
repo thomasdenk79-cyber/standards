@@ -99,6 +99,8 @@ def validate_value(
         return [f"{path}: expected string"]
     if expected_type == "integer" and (not isinstance(value, int) or isinstance(value, bool)):
         return [f"{path}: expected integer"]
+    if expected_type == "boolean" and not isinstance(value, bool):
+        return [f"{path}: expected boolean"]
     if "const" in schema and value != schema["const"]:
         errors.append(f"{path}: expected {schema['const']!r}, got {value!r}")
     if "enum" in schema and value not in schema["enum"]:

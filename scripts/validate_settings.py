@@ -25,6 +25,9 @@ def main() -> int:
     settings = read_settings(defaults_path)
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     errors = validate_settings_data(settings, schema, complete=True)
+    for memory_setting in ("load_user_memory", "load_agent_memory"):
+        if settings.get(memory_setting) is not False:
+            errors.append(f"$.{memory_setting}: base default must be false")
 
     override_paths = [workspace / "user-memory" / "settings.yml"]
     override_paths.extend(sorted((workspace / "user-memory").glob("*/settings.yml")))
@@ -59,6 +62,9 @@ def main() -> int:
             errors.append(f"$.{policy}: missing semantics in root AGENTS.md")
         if f"**{policy}:**" not in template:
             errors.append(f"$.{policy}: missing from AGENTS template")
+    for memory_setting in ("load_user_memory", "load_agent_memory"):
+        if f"`{memory_setting}`" not in root_router:
+            errors.append(f"$.{memory_setting}: missing semantics in root AGENTS.md")
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1
