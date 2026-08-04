@@ -92,6 +92,16 @@ Nach jedem bedeutenden Befund, Meilenstein, Themenwechsel und vor Abschluss/Komp
 
 Nicht auf die Aufforderung "merk dir das" oder ein erkennbares Session-Ende warten.
 
+## Verbindliche Abschlussroutine
+
+- Bei jedem Wartestatus auf den User oder stabilen Meilenstein automatisch dokumentieren:
+  Anforderungen, Acceptance, TODO und Handover des Repos aktualisieren.
+- Resume jederzeit sicherstellen: Markdown-Stand, `git log`, `git diff` und bei Bedarf ein
+  ergänzender SQLite-Arbeitsindex reichen für den Wiederanlauf; letzter Resume-Prompt steht
+  im Handover.
+- Jeden testbaren Softwarestand committen und als Testversion kennzeichnen; Handover nennt den
+  Commit als Referenz.
+
 ## Crash-/Resume-Zustand
 
 > Für kurze Aufgaben `nicht erforderlich` angeben. Lange Batchläufe, Kampagnen oder

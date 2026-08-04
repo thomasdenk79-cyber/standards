@@ -32,6 +32,13 @@ Kanonische gemeinsame Dokumentationsregeln, Konfiguration, Qualitätsprüfungen 
 - Repo-Router verweist vor Umsetzung auf kanonische Vision, Ziele und Anforderungen.
 - Router-Formänderungen auch in `docs\templates\agents-template.md` nachziehen.
 - Nur aufgabenrelevante Doku laden; Änderungen mit vorhandenen Tests validieren.
+- Verbindlich für alle Repos: Bei jedem Wartestatus auf den User oder stabilen Meilenstein
+  automatisch dokumentieren (Requirements/Acceptance/TODO/Handover aktualisieren).
+- Verbindlich für Resume: Projekt muss über Markdown-Stand + `git log` + `git diff` und bei
+  Bedarf ergänzenden SQLite-Arbeitsindex wiederanlaufbar sein; letzter Resume-Prompt ins
+  Handover schreiben.
+- Verbindlich für testbare Zwischenstände: als Git-Commit sichern und als Testversion
+  kennzeichnen; Handover referenziert den Commit.
 
 ## Bedarfsabhängige Vertiefungen
 
