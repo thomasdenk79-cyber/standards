@@ -9,6 +9,8 @@
 ## Zweck
 
 Kanonische gemeinsame Dokumentationsregeln, Konfiguration, Qualitätsprüfungen und Vorlagen.
+Diese Datei ist die Single Source of Truth für gemeinsame Abschluss-, Resume- und
+Testrelease-Pflichten; Root-/Repo-Router verweisen darauf statt Regeln zu duplizieren.
 
 ## Aktueller Stand
 
