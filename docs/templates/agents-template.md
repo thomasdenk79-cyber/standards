@@ -14,136 +14,75 @@
 - **AI-CHAT-LOGGING:** inherit
 - **AI-MEMORY-EXPORT:** inherit
 - **DATA-CLASSIFICATION:** inherit
-- **INHERITS:** `C:\GIT\AGENTS.md`
+- **INHERITS:** `${ENGINEERING_GOVERNANCE_ROOT}/AGENTS.md`
 - **OVERRIDES:** none
 - **SCOPE:** this repository
 
-> Der Startsequenz in `C:\GIT\AGENTS.md` folgen und danach diesen Router vollständig lesen,
-> bevor substanzielle Arbeit in seinem Geltungsbereich beginnt.
+> Erst den kanonischen Governance-Router, dann diese Datei und danach engere Modul-Router
+> lesen. Agents verändern ihre eigenen Rechte nicht.
 
-Die Policy-Semantik steht ausschließlich in `C:\GIT\AGENTS.md`. `inherit` übernimmt den
-Workspace- oder Parent-Wert. Der autorisierte Repository-Owner kann Defaults übernehmen,
-konkretisieren, ersetzen oder deaktivieren und Agentenzugriff bis `AI-ACCESS: denied`
-ausschließen; lokale Overrides werden oben sichtbar benannt. Agents dürfen diese Rechte nicht
-selbst verändern.
+## Aktueller Stand
 
----
+### Stand: YYYY-MM-DD HH:MM | agent: tool | model: provider/model | role: role
 
-## 🔴 AKTUELLER STAND
-
-### Stand: YYYY-MM-DD HH:MM | Agent: X | model: provider/model-id | role: Z
-
-- ✅ Fertig: `{commit-hash}` — {1 Satz was und warum}
-- 🔄 In Arbeit: `{copy-paste Befehl für nächsten Agent}`
-- ❌ Blockiert: {was + warum}
-- 👉 Nächster Schritt: `{exakter Befehl}`
-
----
+- Fertig: `{Commit oder Ergebnis mit Evidenz}`
+- In Arbeit: `{klarer Zustand}`
+- Blockiert: `{Grund oder none}`
+- Nächster Schritt: `{genaue Aktion}`
 
 ## Repo-Kontext
 
 | Was | Detail |
 |---|---|
-| **Zweck** | {Kurzbeschreibung} |
-| **Stack** | {Technologien} |
-| **Pfad lokal** | `C:\GIT\{repo-name}` |
-| **Remote** | `https://github.com/thomasdenk79-cyber/{repo-name}` |
-| **Docs** | `python -m mkdocs gh-deploy` |
-| **Tests** | `python standards\scripts\test_docs.py` |
+| Zweck | {Kurzbeschreibung} |
+| Stack | {Technologien} |
+| Remote | {Canonical Remote oder none} |
+| Docs | {Befehl oder none} |
+| Tests | {Befehl} |
+
+Lokale absolute Pfade werden nicht dokumentiert. Der Repo-Pfad wird aus Git und
+`ENGINEERING_REPOS_ROOT` ermittelt.
 
 ## Fachliche Anker
 
-> Vor fachlicher Umsetzung die passenden Quellen lesen. Pro Thema genau eine kanonische Quelle
-> nennen; kleine Repos dürfen mehrere Themen in einem Project Brief bündeln. Keine Platzhalter
-> in einem aktiven Router stehen lassen.
-
 | Thema | Kanonische Quelle |
 |---|---|
-| Vision, Zweck, Ziele und Nicht-Ziele | `{docs/project/project-brief.md oder gleichwertig}` |
-| Fachanforderungen und akzeptierte Changes | `{Project Brief oder docs/project/requirements.md}` |
-| Architektur und technische Grenzen | `{docs/project/architecture.md oder gleichwertig}` |
-| Entscheidungen und verworfene Alternativen | `{Decision Log, ADR-Verzeichnis oder Git-Historie}` |
-| Aktueller Arbeitsstatus | `{Taskboard, Issue-Tracker oder Handover}` |
-| Crash-/Resume-Zustand | `{nicht erforderlich oder Pfad, Workflow-ID und Resume-Befehl}` |
-| Tests und Abnahmesignale | `{Testpfad, Runbook oder Abnahmeplan}` |
+| Vision, Ziele und Nicht-Ziele | `{Project Brief oder gleichwertig}` |
+| Fachanforderungen | `{Requirements oder Project Brief}` |
+| Architektur und Grenzen | `{Architekturquelle}` |
+| Entscheidungen | `{ADR/Decision Log/Git}` |
+| Arbeitsstatus | `{Issue/TODO/Handover}` |
+| Tests und Acceptance | `{Testplan/Runbook/Acceptance}` |
 
-Die gemeinsame Trennung und das skalierbare Anforderungsmodell stehen in
-`C:\GIT\standards\docs\shared\repository-knowledge.md`.
+Keine zweite TODO-, Requirements- oder Entscheidungsquelle anlegen.
 
-## Cross-Referenzen
+## Lokale Regeln
 
-> Nur Repositories verlinken, die für dieses Projekt tatsächlich relevant sind.
+- {Nur echte Abweichungen oder Ergänzungen zur Governance}
 
-| Repo | Warum relevant | Was dort lesen |
-|---|---|---|
-| *(leer wenn keine Cross-Refs)* | | |
+## Wiederaufnahme
 
-## Gedächtnis-Routing
+- **Workflow-ID:** `{none oder stabile ID}`
+- **Checkpoint:** `{Zeit und verifizierter Zustand}`
+- **Resume:** `{genauer Schritt oder none}`
 
-Nach jedem bedeutenden Befund, Meilenstein, Themenwechsel und vor Abschluss/Kompaktierung:
+Für komplexe oder unterbrechbare Arbeit Handover/TODO aktualisieren. SQLite nur für lange
+transaktionale Workflows; Markdown und Git bleiben kanonisch.
 
-| Information | Ziel |
-|---|---|
-| Technischer Stand, Befehle, TODOs, Fallstricke | Diese `AGENTS.md` oder verlinktes Handover |
-| Fachlich neutrales WHY für materielle Änderungen | Zentral `C:\GIT\standards\why\conversations\`; Commit nennt den exakten `why-ref` |
-| Persönlicher User-Kontext | `C:\GIT\user-memory\profile.md` |
-| Cross-Repo-Session-Handoff | `C:\GIT\user-memory\session-log.md` |
-| Wiederverwendbare Agent-Erkenntnis | Über `C:\GIT\agent-memory\INDEX.md` routen |
+## Abschluss
 
-Nicht auf die Aufforderung "merk dir das" oder ein erkennbares Session-Ende warten.
-
-## Verbindliche Abschlussroutine
-
-- Bei jedem Wartestatus auf den User oder stabilen Meilenstein automatisch dokumentieren:
-  Anforderungen, Acceptance, TODO und Handover des Repos aktualisieren.
-- Resume jederzeit sicherstellen: Markdown-Stand, `git log`, `git diff` und bei Bedarf ein
-  ergänzender SQLite-Arbeitsindex reichen für den Wiederanlauf; letzter Resume-Prompt steht
-  im Handover.
-- Jeden testbaren Softwarestand committen und als Testversion kennzeichnen; Handover nennt den
-  Commit als Referenz.
-
-## Crash-/Resume-Zustand
-
-> Für kurze Aufgaben `nicht erforderlich` angeben. Lange Batchläufe, Kampagnen oder
-> absturzgefährdete Workflows verwenden einen ignorierten SQLite-Arbeitsindex pro Workflow,
-> nicht pro Agent. Pfad, Schema, letzter Checkpoint und Resume-Befehl hier oder im verlinkten
-> Handover dokumentieren. Details:
-> `C:\GIT\standards\docs\shared\working-index.md`.
-
-- **Workflow-ID:** `{nicht erforderlich oder stabile ID}`
-- **SQLite:** `{nicht erforderlich oder .agent-state\<workflow-id>.sqlite3}`
-- **Letzter Checkpoint:** `{Zeit, Work Item und verifizierter Zustand}`
-- **Resume:** `{genauer Befehl oder Schritt}`
-
-## Offene Arbeit (optional)
-
-> Nur verwenden, wenn kein verlinkter Issue-Tracker oder Taskboard die kanonische Quelle ist.
-> Keine zweite TODO-Liste führen.
-
-| Prio | Aufgabe | Kontext |
-|---|---|---|
-| 🔴 | {erste Aufgabe} | {Details} |
-
-## Quickstart
-
-```powershell
-Set-Location -LiteralPath C:\GIT\{repo-name}
-{start-befehl}
-```
-
-## Bekannte Fallstricke
-
-- {Fallstrick 1 — warum und wie vermeiden}
+- Anforderungen, Acceptance, TODO und Handover konsistent halten.
+- Relevante Tests und bekannte Lücken belegen.
+- Fremde Änderungen erhalten und Git-Status verstehen.
+- Commit/Push nur gemäß Policy und User-Auftrag.
 
 ## Commit-Format
 
 ```text
 <type>(<scope>): <what> -- <why>
 
-why-ref: <sanitized conversation summary, ticket or ADR>
-agent: <tool-name> | model: <provider/model-id> | role: <role>
+why-ref: <sanitized summary, ticket or ADR>
+agent: <tool> | model: <provider/model> | role: <role>
 ```
 
-Mehrere Belege mit ` · ` trennen. Bei materieller Agent-Arbeit die zentrale bereinigte
-Zusammenfassung als exakten Workspace-relativen Pfad unter `standards/why/conversations`
-angeben. Private Originale aus `user-memory` niemals in Git referenzieren.
+Private Originale und Secrets nie referenzieren.

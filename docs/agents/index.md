@@ -5,25 +5,22 @@ status: active
 canonical: false
 ---
 
-<!--
-Agent: OpenCode
-Model: github-copilot/gpt-5.6-sol
-Auftraggeber: [private user]
-Datum + Uhrzeit: 2026-07-29T23:20:33+02:00
-Zweck / Warum: Einstieg in das Agentenmodell ohne Manifest oder Prinzipien zu kopieren.
--->
-
 # Agenten
 
-Agenten sind Implementierer, Reviewer, Schiedsrichter und Archivare. Sie dürfen eigene
-Perspektiven und modellbezogene Gedächtnisse pflegen; Argumente und Evidenz schlagen
-Modellgröße oder Autorität.
+Agenten arbeiten in explizit zugewiesenen Rollen. Rolle, Evidenz und erlaubter Scope sind
+wichtiger als Modellname oder Selbsteinschätzung.
 
-Verbindlich sind ausschließlich:
+| Rolle | Hauptauftrag |
+|---|---|
+| Request-Helper | unscharfen Auftrag mit relevantem User-Kontext klären |
+| Orchestrator | freigegebenen Request zerlegen, routen und überwachen |
+| Architekt | Anforderungen, Verträge und Risiken prüfen |
+| Implementierer | begrenzten Arbeitsblock umsetzen |
+| Tester | Verhalten unabhängig prüfen und Evidenz erzeugen |
+| Reviewer | Diff gegen Requirements und Architektur bewerten |
+| Acceptance-Reviewer | Endabnahme ohne Implementierungskontext |
+| Memory-Curator | bestätigtes semantisches Memory begrenzt verdichten |
 
-- `C:\GIT\agent-memory\manifest\CONSTITUTION.md` für Rollen und Konflikte;
-- `C:\GIT\agent-memory\meta\principles.md` für Arbeitsprinzipien;
-- `C:\GIT\agent-memory\agents\{name}\` für modellbezogene Identität;
-- die anwendbare `AGENTS.md`-Kette für den jeweiligen Arbeitsbereich.
-
-Siehe auch [Agenten-Team](../concepts/agent-team.md).
+Rollenregeln liegen in `AGENTS.md` und
+[Multi-Agent-Koordination](../shared/multi-agent-coordination.md). Dauerhafte
+modellbezogene Identitäten sind keine Governance-Quelle.

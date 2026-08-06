@@ -15,8 +15,8 @@ Zweck / Warum: Große operative Detailmengen tokenarm und crashfest verwalten.
 
 # Optionaler Arbeitsindex
 
-Markdown und Git bleiben die **Single Source of Truth**. User- und Agent-Memory erweitern sie
-für personen- beziehungsweise agentenbezogenes Wissen.
+Markdown und Git bleiben die **Single Source of Truth**. Optionales semantisches User-Memory
+enthält ausschließlich knappe repoübergreifende Benutzerfakten.
 
 Ein Workflow darf zusätzlich SQLite verwenden, wenn strukturierte Detailarbeit davon
 profitiert, zum Beispiel für viele Schritte, Abhängigkeiten, Testfälle, Hypothesen,
@@ -43,7 +43,7 @@ einem knappen Handover eindeutig rekonstruierbar sind.
 - SQLite ist optional: Für kleine Aufgaben entsteht keine Datenbank.
 - Der Index ist Arbeitsgedächtnis, keine zweite fachliche Wahrheit.
 - Crash-/Resume-relevante Ergebnisse werden zeitnah in `AGENTS.md`, Handover, TODO,
-  Requirements, Decision Log oder das passende User-/Agent-Memory verdichtet.
+  Requirements, Decision Log oder Handover verdichtet.
 - Bei Widerspruch gewinnt die kanonische Markdown-Quelle.
 - Startup-Agenten laden nur die verdichteten Markdown-Einstiege; SQLite wird erst bei
   passender Detailarbeit abgefragt.

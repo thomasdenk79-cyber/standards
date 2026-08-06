@@ -69,9 +69,10 @@ def default_lease_root() -> Path:
     configured = os.environ.get("LOCAL_MODEL_LEASE_DIR")
     if configured:
         return Path(configured)
-    if os.name == "nt":
-        return Path(r"C:\GIT\.runtime\local-model-leases")
-    return Path.home() / ".local" / "state" / "c-git" / "local-model-leases"
+    repos_root = os.environ.get("ENGINEERING_REPOS_ROOT")
+    if repos_root:
+        return Path(repos_root) / ".runtime" / "local-model-leases"
+    return Path.home() / ".local" / "state" / "engineering-workspace" / "local-model-leases"
 
 
 def _iso(value: dt.datetime) -> str:

@@ -55,7 +55,7 @@ Workspace-/Parent-Router; Vendor-Adapter dürfen sie nicht verändern.
 | Information | Kanonischer Ort | Nicht dafür verwenden |
 |---|---|---|
 | Vision, Zweck, Zielgruppen, Ziele, Nicht-Ziele | `docs/project/project-brief.md` oder gleichwertige verlinkte Datei | `AGENTS.md`, Taskboard, Changelog |
-| Fachliche Anforderungen und akzeptierte Changes | bei kleinen Projekten im Project Brief, sonst `docs/project/requirements.md` | Vendor-Instructions, Agent-Memory |
+| Fachliche Anforderungen und akzeptierte Changes | bei kleinen Projekten im Project Brief, sonst `docs/project/requirements.md` | Vendor-Instructions, semantisches User-Memory |
 | Architektur und technische Grenzen | `docs/project/architecture.md` oder gleichwertig | Requirements als Implementierungsdiktat |
 | Folgenreiche Entscheidungen und verworfene Alternativen | `docs/engineering/decision-log.md` oder ADRs | nachträglich umgeschriebene Requirements |
 | Aktuelle Aufgaben und Fortschritt | `docs/project/taskboard.md`, Issue-Tracker oder Handover | Project Brief |
@@ -149,7 +149,7 @@ Git, Session-Autosave und Projektdokumente lösen verschiedene Probleme:
 
 Projektgebundene Tasks bleiben im Fach-Repo. Repoübergreifende oder noch keinem Repo
 zuordenbare Arbeit darf in einer gemeinsamen Agenten-Inbox liegen und wird verschoben oder
-verlinkt, sobald ein fachlicher Owner existiert. Persönliches Agent-Memory ist keine gemeinsame
+verlinkt, sobald ein fachlicher Owner existiert. Semantisches User-Memory ist keine gemeinsame
 Taskquelle.
 
 ### Aufgabenbezogener Abruf

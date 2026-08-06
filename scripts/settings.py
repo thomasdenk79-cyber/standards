@@ -1,4 +1,4 @@
-"""Resolve the workspace settings hierarchy from general to specific."""
+"""Resolve hierarchical settings from portable workspace roots."""
 
 from __future__ import annotations
 
@@ -11,14 +11,43 @@ from typing import Any
 import yaml
 
 
-SAFE_ID = re.compile(r"^[A-Za-z0-9._-]+$")
-BASE_SETTINGS = Path("standards/settings.yml")
+REPOS_ROOT_ENV = "ENGINEERING_REPOS_ROOT"
+GOVERNANCE_ROOT_ENV = "ENGINEERING_GOVERNANCE_ROOT"
+WORKSPACE_MARKER = ".engineering-workspace.yaml"
 GLOBAL_USER_SETTINGS = Path("user-memory/settings.yml")
+SAFE_ID = re.compile(r"^[A-Za-z0-9._-]+$")
+
+
+def _absolute(path: str | Path) -> Path:
+    return Path(os.path.abspath(os.path.expanduser(str(path))))
+
+
+def _environment_root(name: str) -> Path | None:
+    value = os.environ.get(name)
+    if not value:
+        return None
+    path = _absolute(value)
+    return path if path.is_dir() else None
 
 
 def find_workspace_root(start: Path) -> Path | None:
-    for directory in (start, *start.parents):
-        if (directory / BASE_SETTINGS).is_file():
+    configured = _environment_root(REPOS_ROOT_ENV)
+    if configured is not None:
+        return configured
+    current = _absolute(start)
+    for directory in (current, *current.parents):
+        if (directory / WORKSPACE_MARKER).is_file():
+            return directory
+    return None
+
+
+def find_governance_root(start: Path) -> Path | None:
+    configured = _environment_root(GOVERNANCE_ROOT_ENV)
+    if configured is not None:
+        return configured
+    current = _absolute(start)
+    for directory in (current, *current.parents):
+        if (directory / "settings.yml").is_file() and (directory / "AGENTS.md").is_file():
             return directory
     return None
 
@@ -36,22 +65,47 @@ def resolve_user(explicit: str | None = None) -> str | None:
     return selected
 
 
-def settings_paths(root: Path, user: str | None = None) -> list[Path]:
-    base = root / BASE_SETTINGS
+def settings_paths(
+    repos_root: Path,
+    user: str | None = None,
+    governance_root: Path | None = None,
+) -> list[Path]:
+    governance = governance_root or find_governance_root(Path(__file__).parent)
+    if governance is None:
+        raise FileNotFoundError(
+            f"{GOVERNANCE_ROOT_ENV} is unset and no governance root was discovered"
+        )
+    base = governance / "settings.yml"
     if not base.is_file():
         raise FileNotFoundError(f"Base settings not found: {base}")
 
     paths = [base]
-    global_user = root / GLOBAL_USER_SETTINGS
+    global_user = repos_root / GLOBAL_USER_SETTINGS
     if global_user.is_file():
         paths.append(global_user)
 
     selected = resolve_user(user)
     if selected:
-        user_settings = root / "user-memory" / selected / "settings.yml"
+        user_settings = repos_root / "user-memory" / selected / "settings.yml"
         if user_settings.is_file():
             paths.append(user_settings)
     return paths
+
+
+def resolve_workspace_path(
+    value: str,
+    repos_root: Path,
+    governance_root: Path,
+) -> Path:
+    expanded = value.replace("${ENGINEERING_REPOS_ROOT}", str(repos_root))
+    expanded = expanded.replace(
+        "${ENGINEERING_GOVERNANCE_ROOT}",
+        str(governance_root),
+    )
+    if "${ENGINEERING_" in expanded:
+        raise ValueError(f"Unsupported workspace variable in path: {value}")
+    path = Path(expanded)
+    return _absolute(path if path.is_absolute() else repos_root / path)
 
 
 def read_settings(path: Path) -> dict[str, object]:
@@ -86,7 +140,9 @@ def validate_value(
         if not isinstance(value, dict):
             return [f"{path}: expected object"]
         required = schema.get("required", [])
-        errors.extend(f"{path}.{key}: missing required setting" for key in required if key not in value)
+        errors.extend(
+            f"{path}.{key}: missing required setting" for key in required if key not in value
+        )
         properties = schema.get("properties", {})
         if schema.get("additionalProperties") is False:
             errors.extend(f"{path}.{key}: unknown setting" for key in value if key not in properties)
@@ -129,9 +185,18 @@ def validate_settings_data(
     return errors
 
 
-def load_settings(root: Path, user: str | None = None) -> dict[str, object]:
-    paths = settings_paths(root, user)
-    schema_path = root / "standards" / "settings.schema.json"
+def load_settings(
+    repos_root: Path,
+    user: str | None = None,
+    governance_root: Path | None = None,
+) -> dict[str, object]:
+    governance = governance_root or find_governance_root(Path(__file__).parent)
+    if governance is None:
+        raise FileNotFoundError(
+            f"{GOVERNANCE_ROOT_ENV} is unset and no governance root was discovered"
+        )
+    paths = settings_paths(repos_root, user, governance)
+    schema_path = governance / "settings.schema.json"
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     settings = read_settings(paths[0])
     errors = validate_settings_data(settings, schema, complete=True)

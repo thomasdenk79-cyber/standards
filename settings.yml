@@ -32,5 +32,5 @@ default_data_classification: internal
 # transcript archive and accepts responsibility for its storage and access controls.
 transcript_secret_handling: redact
 
-chat_private_dir: user-memory/why/conversations
-chat_shared_dir: standards/why/conversations
+chat_private_dir: ${ENGINEERING_REPOS_ROOT}/user-memory/why/conversations
+chat_shared_dir: ${ENGINEERING_GOVERNANCE_ROOT}/why/conversations

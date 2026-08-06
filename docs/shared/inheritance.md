@@ -48,35 +48,31 @@ Sicherheits-, Rechts-, Datenschutz- und Secret-Grenzen können nicht abgeschwäc
 Information. **Don’t Repeat Yourself (DRY)** verhindert, dass dieselbe Information in Pfaden,
 Dateinamen oder Inhalten unnötig mehrfach gepflegt wird.
 
-Beide Grundsätze gelten auch für Metadaten: `user-memory\settings.yml` ist klarer als
-`user-memory\user-settings.yml`, weil der Pfad den User-Kontext bereits trägt. Bewusste
-Wiederholung bleibt erlaubt, wenn ein Werkzeug einen festen Namen verlangt, mehrere Rollen im
-selben Verzeichnis unterschieden werden müssen oder ein kurzer Sicherheitshinweis die
-Fehlbedienung deutlich reduziert. Die Wiederholung verweist dann auf die kanonische Quelle,
-statt eine zweite normative Wahrheit zu erzeugen.
+Beide Grundsätze gelten auch für Metadaten. Bewusste Wiederholung bleibt erlaubt, wenn ein
+Werkzeug einen festen Namen verlangt oder ein kurzer Sicherheitshinweis Fehlbedienung
+reduziert. Die Wiederholung verweist auf die kanonische Quelle, statt eine zweite normative
+Wahrheit zu erzeugen.
 
 ## Drei Beispiele
 
 ### 1. `settings.yml`
 
 ```text
-C:\GIT\standards\settings.yml
-  C:\GIT\user-memory\settings.yml
-    C:\GIT\user-memory\<username>\settings.yml
+${ENGINEERING_GOVERNANCE_ROOT}/settings.yml
+  ${ENGINEERING_REPOS_ROOT}/user-memory/settings.yml
+    ${ENGINEERING_REPOS_ROOT}/user-memory/<username>/settings.yml
 ```
 
-Die Standards-Datei enthält die vollständige Basis. `user-memory\settings.yml` überschreibt
-globale User-Defaults. Eine optionale benutzerspezifische Datei ergänzt oder überschreibt nur
-abweichende Werte. Vor dem Laden wird ihre Existenz geprüft. Fehlende Dateien und Schlüssel
-bedeuten Vererbung; eine fehlende optionale Datei ist weder Fehler noch geladene Quelle.
-Statusausgaben unterscheiden deshalb mögliche Pfade, geladene Quellen und geerbte Werte.
+Die Governance-Datei enthält die aktuelle vollständige Basis. Das vorgeschlagene Zielmodell
+ersetzt die Legacy-Kette später durch `.workspace/user-settings.yaml`; bis zur Freigabe bleibt
+die bestehende Kette kompatibel. Fehlende optionale Dateien und Schlüssel bedeuten Vererbung.
 
 ### 2. `AGENTS.md`
 
 ```text
-C:\GIT\AGENTS.md
-  C:\GIT\<repo>\AGENTS.md
-    C:\GIT\<repo>\<module>\AGENTS.md
+${ENGINEERING_GOVERNANCE_ROOT}/AGENTS.md
+  <repo>/AGENTS.md
+    <repo>/<module>/AGENTS.md
 ```
 
 Der Repo-Router ergänzt Projektregeln. Ein Modul kann beispielsweise geerbten Netzwerkzugriff
@@ -86,8 +82,8 @@ benennt ersetzte Aussagen.
 ### 3. `README.md`
 
 ```text
-C:\GIT\<repo>\README.md
-  C:\GIT\<repo>\<module>\README.md
+<repo>/README.md
+  <repo>/<module>/README.md
 ```
 
 Das Modul-README wiederholt weder Projektzweck noch globales Setup. Es verlinkt das

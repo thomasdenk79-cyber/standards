@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+import os
 from argparse import Namespace
 from pathlib import Path
+from unittest.mock import patch
 
 import sync_chat_logs
 
@@ -14,9 +16,24 @@ class SyncChatLogsTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
+        self.governance = self.root / "engineering-governance"
+        self.governance.mkdir()
+        (self.governance / "AGENTS.md").write_text(
+            "- **DATA-CLASSIFICATION:** public\n",
+            encoding="utf-8",
+        )
+        self.environment = patch.dict(
+            os.environ,
+            {
+                "ENGINEERING_REPOS_ROOT": str(self.root),
+                "ENGINEERING_GOVERNANCE_ROOT": str(self.governance),
+            },
+            clear=False,
+        )
+        self.environment.start()
         self.settings = {
-            "chat_private_dir": "user-memory/why/conversations",
-            "chat_shared_dir": "standards/why/conversations",
+            "chat_private_dir": "${ENGINEERING_REPOS_ROOT}/user-memory/why/conversations",
+            "chat_shared_dir": "${ENGINEERING_GOVERNANCE_ROOT}/why/conversations",
         }
         self.snapshot = sync_chat_logs.SessionSnapshot(
             payload=(
@@ -30,6 +47,7 @@ class SyncChatLogsTests(unittest.TestCase):
         )
 
     def tearDown(self) -> None:
+        self.environment.stop()
         self.temporary.cleanup()
 
     def test_dot_identifiers_are_rejected(self) -> None:
@@ -243,7 +261,7 @@ class SyncChatLogsTests(unittest.TestCase):
             )
 
     def test_public_target_rejects_internal_summary(self) -> None:
-        router = self.root / "standards" / "why" / "AGENTS.md"
+        router = self.governance / "why" / "AGENTS.md"
         router.parent.mkdir(parents=True)
         router.write_text("- **DATA-CLASSIFICATION:** public\n", encoding="utf-8")
         body = self.root / "summary.md"

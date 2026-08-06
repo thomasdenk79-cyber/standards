@@ -13,7 +13,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-from settings import load_settings
+from settings import (
+    find_governance_root,
+    find_workspace_root,
+    load_settings,
+    resolve_workspace_path,
+)
 
 
 SAFE_ID = re.compile(r"^[A-Za-z0-9._-]+$")
@@ -70,8 +75,26 @@ class SessionSnapshot:
 
 def workspace_root(explicit: str | None) -> Path:
     if explicit:
-        return Path(explicit).resolve()
-    return Path(__file__).resolve().parents[2]
+        return Path(os.path.abspath(os.path.expanduser(explicit)))
+    discovered = find_workspace_root(Path.cwd())
+    if discovered is None:
+        raise FileNotFoundError(
+            "ENGINEERING_REPOS_ROOT is unset and no .engineering-workspace.yaml was found"
+        )
+    return discovered
+
+
+def configured_path(
+    root: Path,
+    settings: dict[str, object],
+    key: str,
+) -> Path:
+    governance = find_governance_root(Path(__file__).parent)
+    if governance is None:
+        raise FileNotFoundError(
+            "ENGINEERING_GOVERNANCE_ROOT is unset and no governance root was found"
+        )
+    return resolve_workspace_path(str(settings[key]), root, governance)
 
 
 def validate_identifier(value: str, label: str) -> str:
@@ -117,7 +140,7 @@ def resolve_chat_number(
         if requested < 1:
             raise ValueError("Chat number must be greater than zero")
         return requested
-    private = root / str(settings["chat_private_dir"])
+    private = configured_path(root, settings, "chat_private_dir")
     if session_id and source and private.is_dir():
         pattern = re.compile(r"^(\d+)-\d+__original-")
         for path in private.iterdir():
@@ -126,7 +149,7 @@ def resolve_chat_number(
                 return int(match.group(1))
     directories = (
         private,
-        root / str(settings["chat_shared_dir"]),
+        configured_path(root, settings, "chat_shared_dir"),
     )
     numbers = [number for directory in directories for number in artifact_numbers(directory)]
     return max(numbers, default=0) + 1
@@ -261,7 +284,7 @@ def redact_secrets(text: str, extra_patterns: list[str] | None = None) -> tuple[
 
 
 def private_directory(root: Path, settings: dict[str, object]) -> Path:
-    return root / str(settings["chat_private_dir"])
+    return configured_path(root, settings, "chat_private_dir")
 
 
 def archive(
@@ -339,9 +362,14 @@ def shared_summary(
     if not body:
         raise ValueError("Shared summary body is empty")
 
-    directory = root / str(settings["chat_shared_dir"])
+    directory = configured_path(root, settings, "chat_shared_dir")
     directory.mkdir(parents=True, exist_ok=True)
-    policy = summary_classification_policy(directory, root)
+    governance = find_governance_root(Path(__file__).parent)
+    if governance is None:
+        raise FileNotFoundError(
+            "ENGINEERING_GOVERNANCE_ROOT is unset and no governance root was found"
+        )
+    policy = summary_classification_policy(directory, governance)
     allowed = {"public"} if policy == "public" else {"public", "internal"}
     if classification not in allowed:
         raise ValueError(
@@ -410,7 +438,10 @@ def snapshot_from_args(args: argparse.Namespace) -> SessionSnapshot:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--workspace", help="Workspace root; defaults to C:\\GIT")
+    parser.add_argument(
+        "--workspace",
+        help="Repository root; defaults to ENGINEERING_REPOS_ROOT or the nearest marker",
+    )
     parser.add_argument("--user", help="User override directory below user-memory")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -453,7 +484,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--classification",
         choices=("public", "internal"),
         default="public",
-        help="Allowed central summary class; current standards/why policy may be stricter",
+        help="Allowed central summary class; the governance why policy may be stricter",
     )
     summary_parser.add_argument("--confirm-sanitized", action="store_true")
     return parser
@@ -462,7 +493,12 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = build_parser().parse_args()
     root = workspace_root(args.workspace)
-    settings = load_settings(root, args.user)
+    governance = find_governance_root(Path(__file__).parent)
+    if governance is None:
+        raise FileNotFoundError(
+            "ENGINEERING_GOVERNANCE_ROOT is unset and no governance root was found"
+        )
+    settings = load_settings(root, args.user, governance)
 
     if args.command == "archive":
         snapshot = snapshot_from_args(args)

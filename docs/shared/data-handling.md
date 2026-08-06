@@ -27,19 +27,19 @@ herabstufen.
 
 Sensible Userdaten sind insbesondere Identifikatoren, Kontaktdaten, Familie, Gesundheit,
 Finanzen, Beschäftigungsdetails, private Termine und nicht öffentliche Verhaltensprofile.
-`store_user_sensitive_data` steuert ausschließlich **kuratierte Ableitungen** in User- und
-Agent-Memory. Private Rohchats werden unabhängig durch `AI-CHAT-LOGGING` gesteuert.
+`store_user_sensitive_data` steuert ausschließlich **kuratierte Ableitungen**. Private
+Rohchats werden unabhängig durch `AI-CHAT-LOGGING` gesteuert.
 
 | Wert | Persistenz |
 |---|---|
 | `none` | Keine sensiblen kuratierten Ableitungen dauerhaft speichern. |
-| `only_at_user_memory` | Nur im privaten `user-memory`; dort dürfen notwendige Details erhalten bleiben. |
-| `only_at_agent_memory` | Nur im privaten `agent-memory`, minimal und ausschließlich bei agentbezogenem Bedarf. |
-| `all` | Vollständiger privater User-Kontext darf im `user-memory` erhalten bleiben; zusätzlich sind minimale agentbezogene Ableitungen im `agent-memory` erlaubt. |
+| `only_at_user_memory` | Nur in einer freigegebenen privaten User-Kontextquelle. |
+| `only_at_agent_memory` | Legacy-Wert; bis zur Schemamigration nicht für neue Daten verwenden. |
+| `all` | Legacy-Wert; neue Konfigurationen verwenden stattdessen explizite Quellen und Rollen. |
 
 Bewusst veröffentlichte Rollen- oder Projektidentität gilt nicht als sensible Userdaten; ihre
 Weiterverwendung bleibt zweckgebunden. Secrets, Zugangsdaten und private Schlüssel sind keine
-User-Memory-Daten und werden bei keinem Wert gespeichert. Es gilt Datenminimierung: so wenig
+Memory-Daten und werden bei keinem Wert gespeichert. Es gilt Datenminimierung: so wenig
 Detail und so kurze Aufbewahrung wie für den konkreten Zweck nötig.
 
 Bei `AI-CHAT-LOGGING: transcript` liegt der native Rohchat im privaten `chat_private_dir`.

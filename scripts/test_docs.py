@@ -6,11 +6,10 @@ Prüft:
   2. Alle nav-Seiten wurden gebaut und sind nicht leer
   3. Keine kaputten internen Links in der gebauten Site
   4. AGENTS.md-Pflichtabschnitte vorhanden
-  5. session-log.md wurde in den letzten 7 Tagen aktualisiert
+  5. Workspace-Settings entsprechen dem Schema
 
 Ausführen:
-  cd D:\\git\\llm-evaluation-workbench
-  python standards\\scripts\\test_docs.py
+  python "$env:ENGINEERING_GOVERNANCE_ROOT\\scripts\\test_docs.py"
 
 Oder mit pytest:
   pytest scripts\\test_docs.py -v
@@ -24,7 +23,6 @@ import shutil
 import tempfile
 from urllib.parse import urlparse
 from pathlib import Path
-from datetime import datetime, timedelta
 from html.parser import HTMLParser
 
 # ── Pfade ──────────────────────────────────────────────────────────────────
@@ -35,13 +33,13 @@ SITE_DIR    = Path(tempfile.mkdtemp(prefix="mkdocs-docs-test-"))
 DOCS_DIR    = REPO_ROOT / "docs"
 MKDOCS_YML  = REPO_ROOT / "mkdocs.yml"
 AGENTS_MD   = REPO_ROOT / "AGENTS.md"
-SESSION_LOG = Path("C:/GIT/user-memory/session-log.md")
 SETTINGS_VALIDATOR = SCRIPT_REPO_ROOT / "scripts" / "validate_settings.py"
+MKDOCS_RUNNER = SCRIPT_REPO_ROOT / "scripts" / "run_mkdocs.py"
 atexit.register(shutil.rmtree, SITE_DIR, ignore_errors=True)
 
 
 def get_site_path_prefix():
-    """Return the path prefix from site_url, e.g. /standards for GitHub Pages."""
+    """Return the path prefix from site_url, e.g. /engineering-governance."""
     if not MKDOCS_YML.exists():
         return ""
     match = re.search(r"^site_url:\s*[\"']?([^\s\"']+)", MKDOCS_YML.read_text(encoding="utf-8"), re.MULTILINE)
@@ -70,7 +68,14 @@ def test_mkdocs_build():
         return
 
     result = subprocess.run(
-        [sys.executable, "-m", "mkdocs", "build", "--strict", "--site-dir", str(SITE_DIR)],
+        [
+            sys.executable,
+            str(MKDOCS_RUNNER),
+            "build",
+            "--strict",
+            "--site-dir",
+            str(SITE_DIR),
+        ],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -206,23 +211,6 @@ def test_workspace_settings_schema():
     assert result.returncode == 0, result.stdout + result.stderr
 
 
-def test_session_log_recently_updated():
-    """session-log.md sollte innerhalb der letzten 7 Tage aktualisiert worden sein."""
-    if not SESSION_LOG.exists():
-        # Kein Fehler — vielleicht erstes Setup
-        print(f"  ⚠  session-log.md nicht gefunden: {SESSION_LOG}")
-        return
-
-    mtime = datetime.fromtimestamp(SESSION_LOG.stat().st_mtime)
-    age = datetime.now() - mtime
-
-    # Warnung, kein harter Fehler — könnte bewusst sein
-    if age > timedelta(days=7):
-        print(f"  ⚠  session-log.md zuletzt geändert vor {age.days} Tagen — aktualisieren!")
-    else:
-        print(f"  ✓  session-log.md aktuell (vor {age.days}d {age.seconds//3600}h)")
-
-
 # ── Direktaufruf (ohne pytest) ─────────────────────────────────────────────
 if __name__ == "__main__":
     import io, os
@@ -236,7 +224,6 @@ if __name__ == "__main__":
         test_no_broken_internal_links,
         test_agents_md_mandatory_sections,
         test_workspace_settings_schema,
-        test_session_log_recently_updated,
     ]
 
     passed = failed = 0

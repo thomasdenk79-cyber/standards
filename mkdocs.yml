@@ -1,17 +1,14 @@
 INHERIT: mkdocs-base.yml
 
-site_name: "Thomas Denk — Workspace"
-site_description: "Master-Dokumentation aller Repos, Konzepte und des KI-Agenten-Gedächtnissystems"
-site_url: "https://thomasdenk79-cyber.github.io/standards/"
-
-repo_url: "https://github.com/thomasdenk79-cyber/standards"
-repo_name: "standards"
+site_name: "Engineering Governance"
+site_description: "Providerunabhängige Engineering-Regeln für Menschen und Agents"
 
 nav:
   - 🏠 Start: index.md
   - 🧠 Konzepte:
     - concepts/index.md
     - concepts/operating-model.md
+    - concepts/portable-engineering-workspace.md
     - concepts/memory-architecture.md
     - concepts/ai-native-engineering.md
     - concepts/agent-team.md
@@ -109,8 +106,4 @@ plugins:
   - search
 
 extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/thomasdenk79-cyber
-      name: GitHub thomasdenk79-cyber
   generator: false

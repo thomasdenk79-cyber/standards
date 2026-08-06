@@ -1,41 +1,38 @@
 ---
-title: Gedächtnis-Architektur
+title: Kontext- und Gedächtnisarchitektur
 doc_type: explanation
-status: active
+status: proposed
 canonical: false
 ---
 
-<!--
-Agent: OpenCode
-Model: github-copilot/gpt-5.6-sol
-Auftraggeber: [private user]
-Datum + Uhrzeit: 2026-07-29T23:20:33+02:00
-Zweck / Warum: Kompakte Menschenansicht der kanonischen Agenten-Gedächtnis-Architektur.
--->
+# Kontext- und Gedächtnisarchitektur
 
-# Gedächtnis-Architektur
-
-Die kanonische technische Beschreibung steht in
-`C:\GIT\agent-memory\meta\memory-architecture.md`. Diese Seite ist ihre kompakte
-Menschenansicht.
+Das Ziel ist nützlicher Langzeitkontext ohne globale Chronik.
 
 ```mermaid
-flowchart TD
-  Root[Root AGENTS.md: globale Defaults] --> Project[Projekt AGENTS.md: technischer Zustand]
-  Project --> Module[Modul AGENTS.md: enger Geltungsbereich]
-  Root --> User[User-Memory: stabile User-Fakten]
-  Root --> Agent[Agent-Memory: Erkenntnisse und Selbstkorrektur]
-  Root --> Standards[Standards: gemeinsame Vorlagen und Doku]
+flowchart LR
+  U[user-settings.yaml] --> R[Request-Helper]
+  C[custom_user.md optional] --> R
+  M[agent-semantic-memory.md optional] --> R
+  R --> B[Request-Brief]
+  B --> O[Orchestrator]
+  O --> F[Fachrollen]
+  P[Projekt-Source-of-Truth] --> F
 ```
 
-## Prinzipien
+## Ebenen
 
-- **Vererbung:** Die nächste anwendbare Ebene erbt, ergänzt, überschreibt oder negiert Aussagen
-  nach dem [gemeinsamen Workspace-Modell](../shared/inheritance.md).
-- **Selektiver Abruf:** Ein knapper Index verweist per `READ-WHEN` auf tiefe Details.
-- **SSOT und DRY:** Operative Regeln und ihr Kontext stehen einmal kanonisch; Erklärseiten
-  verlinken dorthin.
-- **Zugriffstemperatur:** Hot/warm/cold/archive beschreibt Zugriff, nicht Wahrheit.
-- **Verdichtung:** Details bleiben rekonstruierbar, während aktive Sichten knapp bleiben.
+| Ebene | Zweck | Laden |
+|---|---|---|
+| User Settings | Sprache, Stil, erlaubte Kontextquellen | primärer Agent |
+| Custom User | freiwilliger, userverwalteter Kontext | nur berechtigte Rollen |
+| Semantic Memory | kurze bestätigte Fakten und Candidates | rollen- und budgetabhängig |
+| Request-Brief | aufgabenrelevante Verdichtung | Orchestrator und Fachrollen |
+| Projektwissen | Requirements, Code, Tests, Entscheidungen | zuständiges Fach-Repo |
+| Archiv | Rohchats und Historie | niemals automatisch |
 
-Mehr zur praktischen Einordnung: [Betriebsmodell](operating-model.md).
+Aktuelle User-Aussage und Fach-Source-of-Truth haben Vorrang. Git bewahrt frühere Werte;
+Memory wird aktualisiert und verdichtet statt chronologisch erweitert.
+
+Das vollständige vorgeschlagene Format steht im
+[portablen Workspace-Konzept](portable-engineering-workspace.md#semantisches-memory).

@@ -1,0 +1,3 @@
+schema_version: 1
+repos_root_env: ENGINEERING_REPOS_ROOT
+governance_root_env: ENGINEERING_GOVERNANCE_ROOT

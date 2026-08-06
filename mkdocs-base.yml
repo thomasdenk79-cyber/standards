@@ -1,7 +1,8 @@
 # MkDocs Basis-Konfiguration — geerbt von allen Repos
 #
 # Verwendung in repo-spezifischer mkdocs.yml:
-#   INHERIT: ../standards/mkdocs-base.yml
+#   INHERIT: "${ENGINEERING_GOVERNANCE_ROOT}/mkdocs-base.yml"
+# Build über scripts/run_mkdocs.py, da MkDocs Pfadsuffixe nicht selbst expandiert.
 #   site_name: Mein Repo Name
 #   nav:
 #     - ...

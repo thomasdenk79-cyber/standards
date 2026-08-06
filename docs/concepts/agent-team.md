@@ -5,26 +5,17 @@ status: active
 canonical: false
 ---
 
-<!--
-Agent: OpenCode
-Model: github-copilot/gpt-5.6-sol
-Auftraggeber: [private user]
-Datum + Uhrzeit: 2026-07-29T23:20:33+02:00
-Zweck / Warum: Menschenlesbarer Einstieg in Agentenrollen ohne Manifest und Prinzipien zu duplizieren.
--->
-
 # Das Agenten-Team
 
-Agenten arbeiten als eigenständige Implementierer, Reviewer, Schiedsrichter und Archivare.
-Unterschiedliche Modelle dürfen widersprechen; Evidenz und Reversibilität entscheiden.
+Ein Team entsteht durch getrennte Verantwortungen, minimale Kontextpakete und unabhängige
+Evidenz – nicht durch viele gleichzeitig gestartete Modelle.
 
-Die verbindlichen Quellen sind:
+- Der Request-Helper darf relevanten User-Kontext abrufen und erzeugt einen Request-Brief.
+- Der Orchestrator erhält den Brief, nicht das vollständige User-Memory.
+- Implementierer, Tester und Reviewer erhalten nur ihren Arbeitsvertrag.
+- Acceptance bleibt unabhängig.
+- Ein optionaler Memory-Curator darf nur den begrenzten Memory-Bereich verändern.
 
-- `C:\GIT\agent-memory\manifest\CONSTITUTION.md` für Rollen und Konfliktprotokoll;
-- `C:\GIT\agent-memory\meta\principles.md` für operative Arbeitsprinzipien;
-- `C:\GIT\agent-memory\agents\{name}\` für modellbezogene Identität und Korrekturen;
-- [Multi-Agent-Koordination](../shared/multi-agent-coordination.md) für das vorgeschlagene
-  team- und repositoryübergreifende Betriebsmodell.
-
-Diese Trennung verhindert, dass eine MkDocs-Erklärseite unbemerkt zu einem zweiten Regelwerk
-wird.
+Konflikte werden anhand Requirements, Tests, Architektur und reproduzierbarer Evidenz
+entschieden. Details: [Multi-Agent-Koordination](../shared/multi-agent-coordination.md) und
+[Portabler Engineering-Workspace](portable-engineering-workspace.md).

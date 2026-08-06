@@ -18,9 +18,8 @@ helfen nur bei Empfehlungen; sie erzeugen keine Pflichtprofile.
 | Bereich | Verantwortung |
 |---|---|
 | Projekt-Repository | Code, aktueller Zustand, lokale Regeln, Tests und Entscheidungen |
-| `standards` | gemeinsame Vorlagen, Engineering-Konzepte und Doku-Prüfungen |
-| `user-memory` | privater User-Kontext; nicht Teil öffentlicher Dokumentation |
-| `agent-memory` | Agenten-Erkenntnisse und Selbstkorrektur; selektiv über `READ-WHEN` |
+| `engineering-governance` | gemeinsame Policies, Vorlagen, Konzepte und Validatoren |
+| `.workspace` | optionale lokale User Settings und begrenzter Kontext; nicht Teil öffentlicher Dokumentation |
 
 Konkrete interne oder private Repositories werden hier bewusst nicht inventarisiert. Der
 aktuelle Workspace-Router ist die kanonische lokale Projektkarte.

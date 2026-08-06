@@ -1,9 +1,9 @@
 # mkdocs.yml Template für neue Repos
 #
 # Dieses Template in das neue Repo kopieren und anpassen.
-# Erbt das komplette Theme/Extensions von standards — nur Repo-Spezifisches hier.
+# Erbt Theme und Extensions aus Engineering Governance.
 
-INHERIT: ../standards/mkdocs-base.yml
+INHERIT: "${ENGINEERING_GOVERNANCE_ROOT}/mkdocs-base.yml"
 
 site_name: {REPO-NAME}
 site_description: {BESCHREIBUNG}
@@ -17,7 +17,6 @@ edit_uri: edit/main/docs/
 
 nav:
   - Start: index.md
-  - AI-native Engineering: https://thomasdenk79-cyber.github.io/standards/concepts/ai-native-engineering/
   # Repo-spezifische Seiten:
   - Entwickler:
     - Setup: operations/setup.md

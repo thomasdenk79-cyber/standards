@@ -25,7 +25,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import local_model_lease as lease
 
 
-WORKSPACE_ROOT = Path(r"C:\GIT") if os.name == "nt" else Path.home() / "c-git"
+WORKSPACE_ROOT = Path(
+    os.environ.get(
+        "ENGINEERING_REPOS_ROOT",
+        Path(__file__).resolve().parents[2],
+    )
+)
 DEFAULT_POLICY_PATH = WORKSPACE_ROOT / ".memory" / "ai-runtime-policy.json"
 DEFAULT_STATE_DIR = WORKSPACE_ROOT / ".runtime" / "ai-runtime"
 DEFAULT_OPENCODE_CONFIG = Path.home() / ".config" / "opencode" / "opencode.json"

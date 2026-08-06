@@ -43,16 +43,18 @@ der Arbeit zusätzlich in ihre Zieldateien geroutet.
    Dateinamen; Schutzklasse und Umgang folgen aus Zielordner und dessen `AGENTS.md`. Secret-
    Redaktionen bleiben im Original als `[REDACTED-SECRET]` sichtbar.
 6. `off`, `summary` oder eine strengere lokale Policy können die private Aufzeichnung begrenzen.
-   Ohne solchen Override gelten `standards/settings.yml`, `user-memory/settings.yml` und eine
-   vorhandene `user-memory/<username>/settings.yml` in dieser Reihenfolge.
-7. Die WHY-Verdichtung liegt zentral in `standards/why/conversations`. Das ist notwendig, weil
+   Ohne solchen Override gelten `${ENGINEERING_GOVERNANCE_ROOT}/settings.yml`,
+   `${ENGINEERING_REPOS_ROOT}/user-memory/settings.yml` und eine vorhandene
+   benutzerspezifische Settings-Datei in dieser Reihenfolge.
+7. Die WHY-Verdichtung liegt zentral unter
+   `${ENGINEERING_GOVERNANCE_ROOT}/why/conversations`. Das ist notwendig, weil
    eine Session mehrere Repositories betreffen, ihr Fach-Repository erst später bekannt werden
    oder vollständig repo-los sein kann. In jeder Verdichtung entfallen Personenbezug,
    Vertrauliches, Sensibles, interne Pfade und unnötige geschützte Projektdetails.
 8. `AI-MEMORY-EXPORT` begrenzt, was die Projektgrenze verlässt. `metadata-only` nennt nur die
    Existenz eines Befunds; `sanitized` erlaubt ausschließlich den bereinigten fachlichen Kern.
-9. Materielle Commits verweisen mit `why-ref` auf den eindeutigen Workspace-relativen Pfad unter
-   `standards/why/conversations`, ein Ticket oder einen ADR. Die aktive Regel oder Entscheidung
+9. Materielle Commits verweisen mit `why-ref` auf `governance:why/conversations/<datei>`, ein
+   Ticket oder einen ADR. Die aktive Regel oder Entscheidung
    bleibt trotzdem ohne den Chat verständlich.
 10. Die Verdichtung beantwortet knapp: Welche Rolle wollte was, warum, seit wann, auf welcher
    Evidenz, welche Alternativen wurden verworfen, welche Konsequenz entstand und wie wurde sie
@@ -83,9 +85,8 @@ Der Agent synchronisiert nicht kontinuierlich. Sinnvolle Punkte sind nach einem 
 Meilenstein, vor einer Kompaktierung, unmittelbar vor einem materiellen Commit und beim
 Session-Ende. Unveränderte Snapshots werden nicht erneut geschrieben.
 
-`C:\GIT\standards\settings.yml` formuliert vendor-neutrale Best-Practice-Defaults.
-Globale User-Overrides liegen unter `C:\GIT\user-memory\settings.yml`, persönliche Overrides
-optional unter `C:\GIT\user-memory\<username>\settings.yml`. Diese Dateien sind keine
+`${ENGINEERING_GOVERNANCE_ROOT}/settings.yml` formuliert vendor-neutrale Defaults.
+User-Overrides liegen unter `${ENGINEERING_REPOS_ROOT}/user-memory`. Diese Dateien sind keine
 OpenCode-, Copilot- oder sonstigen Vendor-Konfigurationsdateien.
 
 ### Verifizierte lokale Adapter
@@ -100,11 +101,12 @@ Upgrade muss der Adapter erneut gegen CLI-Hilfe oder offizielle Dokumentation ge
 
 ## Synchronisation
 
-Das Script `standards/scripts/sync_chat_logs.py` setzt die Dateibenennung und Sicherheitsgrenzen
+Das Script `${ENGINEERING_GOVERNANCE_ROOT}/scripts/sync_chat_logs.py` setzt die
+Dateibenennung und Sicherheitsgrenzen
 um. Ein privater Snapshot ist nur bei effektiver Policy `transcript` erlaubt:
 
 ```powershell
-python C:\GIT\standards\scripts\sync_chat_logs.py archive `
+python "$env:ENGINEERING_GOVERNANCE_ROOT\scripts\sync_chat_logs.py" archive `
   --user <username> `
   --source copilot `
   --session-id <session-id> `
@@ -121,7 +123,7 @@ Markdown-Zusammenfassungen. Das Script veröffentlicht sie zentral; mehrere betr
 unbekannte Repositories ändern diesen Speicherort nicht:
 
 ```powershell
-python C:\GIT\standards\scripts\sync_chat_logs.py publish-summary `
+python "$env:ENGINEERING_GOVERNANCE_ROOT\scripts\sync_chat_logs.py" publish-summary `
   --chat-number 002 `
   --agent "GitHub Copilot CLI 1.0.75" `
   --model "gpt-5.6-sol" `
@@ -137,11 +139,11 @@ Session und verwendet deren Nummer erneut; nur für eine neue Session vergibt es
 workspaceweit freie Nummer. Die Zusammenfassung verwendet die ausgegebene Nummer ausdrücklich.
 
 Die Summary-Ausgabe enthält die exakte Zeile
-`why-ref: standards/why/conversations/<eindeutige-datei>.md` für die Commit-Message. Eine Session
+`why-ref: governance:why/conversations/<eindeutige-datei>.md` für die Commit-Message. Eine Session
 kann mehrere thematische Verdichtungen erhalten; die Chatnummer hält sie zusammen.
 
-`public` ist für den aktuellen `standards/why`-Scope verbindlich. Eine interne
-Standards-Installation darf den Scope auf `internal` verschärfen und den Export entsprechend
+`public` ist für den aktuellen Governance-`why`-Scope verbindlich. Eine interne
+Installation darf den Scope auf `internal` verschärfen und den Export entsprechend
 kennzeichnen; `confidential` und `restricted` gehören ausschließlich in den privaten
 User-Memory-Bereich und werden vom Summary-Befehl nicht akzeptiert.
 
@@ -165,7 +167,7 @@ NNN__ai-summary-KLASSE__TOOL__MODELL__THEMA.md
 |---|---|
 | `NNN` | Drei Ziffern, workspaceweit fortlaufend; verbindet Original und Summary. |
 | `RR` | Zwei Ziffern, bei Originalen immer vorhanden; erster Snapshot `01`, danach `02` usw. |
-| `KLASSE` | In `standards/why` ausschließlich `public` oder bei entsprechendem Router `internal`. |
+| `KLASSE` | Im Governance-`why` ausschließlich `public` oder bei entsprechendem Router `internal`. |
 | `TOOL` | Agent/Tool in Kleinbuchstaben; Version anhängen, wenn bekannt. |
 | `MODELLE` | Alle Modelle des Originals, verbunden mit `-and-`. |
 | `MODELL` | Exaktes Modell, das die Summary erzeugt hat. |
@@ -180,8 +182,8 @@ Session-ID und Sidecar sind verboten.
 
 | Ziel | Erlaubter Typ |
 |---|---|
-| `user-memory/why/conversations/` | `original-restricted` im nativen Format |
-| `standards/why/conversations/` | `ai-summary-public.md`; `ai-summary-internal.md` nur bei internem Router |
+| `${ENGINEERING_REPOS_ROOT}/user-memory/why/conversations/` | `original-restricted` im nativen Format |
+| `${ENGINEERING_GOVERNANCE_ROOT}/why/conversations/` | `ai-summary-public.md`; `ai-summary-internal.md` nur bei internem Router |
 
 `ai-summary-restricted` ist im zentralen Standards-Verzeichnis verboten. Kann ein Chat nicht
 ausreichend neutralisiert werden, wird dort keine Summary veröffentlicht und kein Commit darf
@@ -190,19 +192,19 @@ auf das private Original verweisen.
 ### Beispiel 1: GitHub Copilot CLI
 
 ```text
-user-memory/why/conversations/002-01__original-restricted__github-copilot-cli-1.0.75__claude-sonnet-5-and-gpt-5.6-sol__chat-why-archiv.jsonl
-standards/why/conversations/002__ai-summary-public__github-copilot-cli-1.0.75__gpt-5.6-sol__chat-why-archiv.md
+${ENGINEERING_REPOS_ROOT}/user-memory/why/conversations/002-01__original-restricted__github-copilot-cli-1.0.75__claude-sonnet-5-and-gpt-5.6-sol__chat-why-archiv.jsonl
+${ENGINEERING_GOVERNANCE_ROOT}/why/conversations/002__ai-summary-public__github-copilot-cli-1.0.75__gpt-5.6-sol__chat-why-archiv.md
 ```
 
 ```text
-why-ref: standards/why/conversations/002__ai-summary-public__github-copilot-cli-1.0.75__gpt-5.6-sol__chat-why-archiv.md
+why-ref: governance:why/conversations/002__ai-summary-public__github-copilot-cli-1.0.75__gpt-5.6-sol__chat-why-archiv.md
 ```
 
 ### Beispiel 2: OpenCode
 
 ```text
-user-memory/why/conversations/003-01__original-restricted__opencode-1.18.9__siemens-deepseek-v4-flash__git-windows-pfade.json
-standards/why/conversations/003__ai-summary-public__opencode-1.18.9__siemens-deepseek-v4-flash__git-windows-pfade.md
+${ENGINEERING_REPOS_ROOT}/user-memory/why/conversations/003-01__original-restricted__opencode-1.18.9__siemens-deepseek-v4-flash__git-windows-pfade.json
+${ENGINEERING_GOVERNANCE_ROOT}/why/conversations/003__ai-summary-public__opencode-1.18.9__siemens-deepseek-v4-flash__git-windows-pfade.md
 ```
 
 Wenn nur ein Dateiname angefordert ist, gibt der Agent ausschließlich den Dateinamen aus.
@@ -212,7 +214,8 @@ Er erfindet weder Zeitstempel, Hash, Session-ID, Sidecar, Schutzklasse noch Date
 
 - Private Rohchats: lokal, Git-ignoriert und zugriffsbeschränkt gemäß gewählter Secret-
   Behandlung aufbewahren.
-- Bereinigte Verdichtungen: zentral und versioniert in `standards/why/conversations/`
+- Bereinigte Verdichtungen: zentral und versioniert unter
+  `${ENGINEERING_GOVERNANCE_ROOT}/why/conversations/`
   aufbewahren und aus den zugehörigen materiellen Commits per exaktem Pfad referenzieren.
 - Private Originale werden niemals aus Git-Commits referenziert.
 - Verdichtung ersetzt oder verändert niemals den privaten Rohbeleg.

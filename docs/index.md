@@ -5,22 +5,15 @@ status: active
 canonical: false
 ---
 
-<!--
-Agent: OpenCode
-Model: github-copilot/gpt-5.6-sol
-Auftraggeber: [private user]
-Datum + Uhrzeit: 2026-07-29T23:20:33+02:00
-Zweck / Warum: Einstieg in die abgeleitete MkDocs-Sicht auf das Workspace-Memory-System.
--->
-
 # Workspace-Dokumentation
 
-Ein adaptives externes Gedächtnis für KI-Agenten auf Basis von Markdown und Git.
+Gemeinsame Engineering-Governance für Menschen und Agents.
 
 ## Einstieg
 
 - [Konzepte](concepts/index.md)
 - [Betriebsmodell](concepts/operating-model.md)
+- [Portabler Engineering-Workspace](concepts/portable-engineering-workspace.md)
 - [AI-native Engineering](concepts/ai-native-engineering.md)
 - [Repository-Wissensmodell](shared/repository-knowledge.md)
 - [Forschungs- und Praxisgrundlagen](shared/research-foundations.md)
@@ -29,12 +22,9 @@ Ein adaptives externes Gedächtnis für KI-Agenten auf Basis von Markdown und Gi
 
 ## Grundidee
 
-Markdown, YAML und weitere Konfigurationsdateien folgen der
-[hierarchischen Vererbung](shared/inheritance.md). Knappe Indizes und
-`READ-WHEN` laden Details erst bei Bedarf. Git bewahrt Historie und Begründungen; Projekt-,
-User- und Agent-Memory trennen die Zuständigkeit. Hot/warm/cold/archive und kombinierte
-Salienzsignale steuern,
-welcher Kontext wahrscheinlich benötigt wird.
+Markdown, strukturierte Einstellungen und Router folgen der
+[hierarchischen Vererbung](shared/inheritance.md). Fachwissen bleibt im jeweiligen Repo;
+User-Kontext wird rollenabhängig und begrenzt geladen. Git bewahrt Historie und Begründungen.
 
 Diese Site ist eine **abgeleitete Menschenansicht**, keine zweite Regelquelle. Die kanonischen
-Quellen sind im [Betriebsmodell](concepts/operating-model.md#kanonische-quellen) aufgeführt.
+Quellen sind im [Betriebsmodell](concepts/operating-model.md#source-of-truth) aufgeführt.

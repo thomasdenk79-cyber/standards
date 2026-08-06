@@ -58,8 +58,8 @@ Diese Seite belegt, **was extern dokumentiert ist**, und markiert, was nur unser
 
 Folgende Punkte sind bewusst **unsere** Umsetzung und müssen durch eigene Tests bestätigt werden:
 
-- Projekt-, User- und Agent-Memory als getrennte Zuständigkeitsdomänen;
-- `READ-WHEN` als leichtgewichtiger Retriever;
+- Projekt-Source-of-Truth, User-Kontext und semantisches Memory als getrennte Domänen;
+- Rollen- und Aufgabenbezug als leichtgewichtiger Retriever;
 - hot/warm/cold/archive als Analogie für logische Kontext-Temperatur;
 - Markdown-Hervorhebung, Wiederholung, Links und Aktualität als kombinierte Salienzindizien;
 - Git/Markdown als primäre Lösung und Vector-/Graph-Retrieval erst bei gemessenem Bedarf.
