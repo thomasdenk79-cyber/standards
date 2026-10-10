@@ -50,8 +50,8 @@ Agent-Arbeit vollständig untersagen.
 | *(leer wenn keine Cross-Refs)* | | |
 
 Beispiele:
-- `C:\GIT\postgre` → DB-Schema das dieses Repo nutzt → dort AGENTS.md Abschnitt "Schema"
-- `D:\git\llm-evaluation-workbench` → Benchmark-Ergebnisse die diese Entscheidung begründen
+- `D:\git_ghe\postgre` → DB-Schema das dieses Repo nutzt → dort AGENTS.md Abschnitt "Schema"
+- `D:\git_ghe\llm-evaluation-workbench` → Benchmark-Ergebnisse die diese Entscheidung begründen
 
 ## Gedächtnis-Routing
 
