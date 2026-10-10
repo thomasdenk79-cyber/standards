@@ -1,11 +1,13 @@
 # Standards repository router
 
 - **AI-ACCESS:** allowed
-- **INHERITS:** `C:\GIT\AGENTS.md`
+- **INHERITS:** none (C:\GIT-Zeitalter am 2026-10-10 konsolidiert; Repo-Basen-Politik:
+  `D:\git` Spielwiese/OneDrive, `D:\git_ghe` Default/siemens.ghe.com,
+  `D:\git_github` GitHub-only privat, `D:\git_edi` Siemens-Ruhestand/code.siemens.com)
 - **OVERRIDES:** none
 - **SCOPE:** this repository
 
-> Read after `C:\GIT\AGENTS.md` at every session start.
+> Basen-Politik details: `D:\git_ghe\llm-infra-setup` `docs/AGENT-REFERENCE.md` (Abschnitt Windows-Repo-Basen).
 
 ## Purpose
 
